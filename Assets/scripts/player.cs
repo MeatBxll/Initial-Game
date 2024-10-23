@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using Mirror;
 
-public class player : MonoBehaviour
+public class player : NetworkBehaviour
 {
     [SerializeField] float speed;
     [SerializeField] float sprintMultiplier = 1;
@@ -23,6 +24,7 @@ public class player : MonoBehaviour
 
     void Start()
     {
+        if(!isLocalPlayer) return;
         rb = GetComponent<Rigidbody>();
     }
 
@@ -30,6 +32,7 @@ public class player : MonoBehaviour
 
     private void Update()
     {
+        if(!isLocalPlayer) return;
         Jump(); //allows the player to jump
 
         SpeedControl(); //sets a speed limit but may prevent boops in the future (may need changing) 
@@ -41,6 +44,7 @@ public class player : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(!isLocalPlayer) return;
         Move(); //movement in fixed update to ensure differing frame rates dont interfere with player speed
     }
 

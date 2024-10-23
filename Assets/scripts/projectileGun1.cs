@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Globalization;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SocialPlatforms;
+using Mirror;
 
-public class projectileGun1 : MonoBehaviour
+public class projectileGun1 : NetworkBehaviour
 {
     bool gunLive = true;
 
@@ -19,23 +19,30 @@ public class projectileGun1 : MonoBehaviour
 
 
     [SerializeField] GameObject gun1Projectile;
-    [SerializeField] GameObject endOfBarrel;
+    [SerializeField] Transform endOfBarrel;
+    [SerializeField] Transform gun;
+    [SerializeField] Transform camFollower1;
+    [SerializeField] Transform camFollower2;
 
     private void Start()
     {
-        // if(isLocalPlayer != true) return;
-    
+        if(isLocalPlayer != true) return;
         numbOfShots = maxMagSize;
         
     }
     private void FixedUpdate() 
     {
-        // if(isLocalPlayer != true) return;
+        if(isLocalPlayer != true) return;
         gunMechanics();
+        gun.position = camFollower1.position;
+        gun.rotation = camFollower1.rotation;
+
+        endOfBarrel.rotation = camFollower2.rotation;
     }
 
     private void gunMechanics()
     {
+        
         if(gunLive == true)
         {
             //reload with r
@@ -48,7 +55,7 @@ public class projectileGun1 : MonoBehaviour
             //fire with left mouse key
             if(Input.GetKey(KeyCode.Mouse0))
             {
-                Instantiate(gun1Projectile, endOfBarrel.transform.position, endOfBarrel.transform.rotation);
+                Instantiate(gun1Projectile, endOfBarrel.position, endOfBarrel.rotation);
                 numbOfShots--;
                 Invoke("countAmmo", delayBetweenShots);
                 gunLive = false;
