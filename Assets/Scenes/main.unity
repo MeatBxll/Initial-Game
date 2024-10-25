@@ -423,7 +423,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 70, y: 0.5, z: 30}
+  m_LocalScale: {x: 500, y: 0.5, z: 500}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2110427249}
@@ -616,10 +616,11 @@ MonoBehaviour:
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 571770067794929870, guid: d14f70b43ac6ba145bae8b5cf28daf16, type: 3}
+  playerPrefab: {fileID: 6973667879998118185, guid: 1d25489f61deba3499ce24d69e467503, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
-  spawnPrefabs: []
+  spawnPrefabs:
+  - {fileID: 3992201621267225016, guid: d7736ef06219e9341a11d7224d411e2c, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2
@@ -841,6 +842,22 @@ PrefabInstance:
     - target: {fileID: 5622202836590517088, guid: 311a52e5dd2ea744080b6e6ea205869f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6590119712871148249, guid: 311a52e5dd2ea744080b6e6ea205869f, type: 3}
+      propertyPath: syncInterval
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6590119712871148249, guid: 311a52e5dd2ea744080b6e6ea205869f, type: 3}
+      propertyPath: syncDirection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6590119712871148249, guid: 311a52e5dd2ea744080b6e6ea205869f, type: 3}
+      propertyPath: coordinateSpace
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6619587175237700746, guid: 311a52e5dd2ea744080b6e6ea205869f, type: 3}
+      propertyPath: sceneId
+      value: 7727196
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

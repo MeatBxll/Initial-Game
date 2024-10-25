@@ -10,6 +10,7 @@ using Mirror;
 public class projectileGun1 : NetworkBehaviour
 {
     bool gunLive = true;
+    bool reloading = false;
 
     int numbOfShots;
 
@@ -18,11 +19,11 @@ public class projectileGun1 : NetworkBehaviour
     [SerializeField] float reloadTime;
 
 
+
     [SerializeField] GameObject gun1Projectile;
+    [SerializeField] private float projectileSpeed;
+
     [SerializeField] Transform endOfBarrel;
-    [SerializeField] Transform gun;
-    [SerializeField] Transform camFollower1;
-    [SerializeField] Transform camFollower2;
 
     private void Start()
     {
@@ -34,34 +35,39 @@ public class projectileGun1 : NetworkBehaviour
     {
         if(isLocalPlayer != true) return;
         gunMechanics();
-        gun.position = camFollower1.position;
-        gun.rotation = camFollower1.rotation;
-
-        endOfBarrel.rotation = camFollower2.rotation;
     }
 
     private void gunMechanics()
     {
-        
-        if(gunLive == true)
-        {
-            //reload with r
-            if(Input.GetKeyDown(KeyCode.R) && numbOfShots != 6)
-            {
+        //reload with r
+        if(Input.GetKeyDown(KeyCode.R) && numbOfShots != 6 && reloading == false)
+        {    
                 Invoke("reloadAnimation", delayBetweenShots);
                 gunLive = false;
-            }
-
+        }
+        if(gunLive == true)
+        {
             //fire with left mouse key
             if(Input.GetKey(KeyCode.Mouse0))
             {
-                Instantiate(gun1Projectile, endOfBarrel.position, endOfBarrel.rotation);
+                // GameObject bulletClone = Instantiate(gun1Projectile, endOfBarrel.position, endOfBarrel.rotation);
+                // bulletClone.GetComponent<Rigidbody>().velocity = endOfBarrel.transform.forward * projectileSpeed;
+                CmdSpawnBullet();
                 numbOfShots--;
                 Invoke("countAmmo", delayBetweenShots);
                 gunLive = false;
                 Debug.Log(numbOfShots);
             }
         }
+    }
+
+    [Command]
+    public void CmdSpawnBullet()
+    {
+        GameObject bulletClone = Instantiate(gun1Projectile, endOfBarrel.position, endOfBarrel.rotation);
+        bulletClone.GetComponent<Rigidbody>().velocity = endOfBarrel.transform.forward * projectileSpeed;
+        NetworkServer.Spawn(bulletClone);
+        Destroy(bulletClone, 10);
     }
 
     private void countAmmo()
@@ -72,13 +78,15 @@ public class projectileGun1 : NetworkBehaviour
 
     private void reloadAnimation()
     {
+        reloading = true;
         Invoke("reload",reloadTime);
-        Debug.Log("reload");
+        Debug.Log("reloading");
     }
     private void reload()
     {
         numbOfShots = maxMagSize;
         Debug.Log(numbOfShots);
         gunLive = true;
+        reloading = false;
     }
 }
