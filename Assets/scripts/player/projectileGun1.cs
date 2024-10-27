@@ -9,10 +9,9 @@ using Mirror;
 
 public class projectileGun1 : NetworkBehaviour
 {
-    bool gunLive = true;
-    bool reloading = false;
-
-    int numbOfShots;
+    private bool gunLive = true;
+    private bool reloading = false;
+    private int numbOfShots;
 
     [SerializeField] float delayBetweenShots;
     [SerializeField] int maxMagSize;
@@ -22,19 +21,24 @@ public class projectileGun1 : NetworkBehaviour
 
     [SerializeField] GameObject gun1Projectile;
     [SerializeField] private float projectileSpeed;
-
     [SerializeField] Transform endOfBarrel;
-
+    
     private void Start()
     {
         if(isLocalPlayer != true) return;
         numbOfShots = maxMagSize;
+        GameObject.FindGameObjectWithTag("playerUI").GetComponent<PlayerUI>().maxBulletCount = maxMagSize;
         
     }
     private void FixedUpdate() 
     {
         if(isLocalPlayer != true) return;
+
+        //disables gun if game is paused
+        if(GameObject.FindGameObjectWithTag("playerUI").GetComponent<PlayerUI>().GamePaused) return;
         gunMechanics();
+        GameObject.FindGameObjectWithTag("playerUI").GetComponent<PlayerUI>().currentBulletCount = numbOfShots;
+
     }
 
     private void gunMechanics()
@@ -50,13 +54,10 @@ public class projectileGun1 : NetworkBehaviour
             //fire with left mouse key
             if(Input.GetKey(KeyCode.Mouse0))
             {
-                // GameObject bulletClone = Instantiate(gun1Projectile, endOfBarrel.position, endOfBarrel.rotation);
-                // bulletClone.GetComponent<Rigidbody>().velocity = endOfBarrel.transform.forward * projectileSpeed;
                 CmdSpawnBullet();
                 numbOfShots--;
                 Invoke("countAmmo", delayBetweenShots);
                 gunLive = false;
-                Debug.Log(numbOfShots);
             }
         }
     }
@@ -80,7 +81,6 @@ public class projectileGun1 : NetworkBehaviour
     {
         reloading = true;
         Invoke("reload",reloadTime);
-        Debug.Log("reloading");
     }
     private void reload()
     {

@@ -1,6 +1,7 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 using Mirror;
+using UnityEditor;
+using Unity.Cinemachine;
 
 public class player : NetworkBehaviour
 {
@@ -8,39 +9,48 @@ public class player : NetworkBehaviour
     [SerializeField] float sprintMultiplier = 1;
     [SerializeField] float airMultiplier;
     [SerializeField] float jumpPower;
-    bool readyToJump = true;
-    float sprintSpeed;
+    private bool readyToJump = true;
+    private float sprintSpeed;
 
     [SerializeField] float playerHeight;
     [SerializeField] float groundDrag;
     [SerializeField] LayerMask whatIsGround;
-    bool grounded;
+    private bool grounded;
+    private GameObject _pauseMenu;
+    private bool gameIsPaused;
 
     Rigidbody rb;
-    [SerializeField] Transform cam;
+    [SerializeField] GameObject cam;
 
-    [SerializeField] private Animator animator;
-
-
+    // [SerializeField] private Animator animator;
 
 
     void Start()
     {
         if(!isLocalPlayer) return;
         rb = GetComponent<Rigidbody>();
-    }
 
-    
+        _pauseMenu = GameObject.FindGameObjectWithTag("playerUI");
+        _pauseMenu.GetComponent<PlayerUI>().OnPlayerStart();
+    }
 
     private void Update()
     {
         if(!isLocalPlayer) return;
 
-        if (Input.GetKey("space") && readyToJump == true && grounded == true) Jump();
+
+        //disables camera and jump while game is paused
+        gameIsPaused = _pauseMenu.GetComponent<PlayerUI>().GamePaused;
+        if(gameIsPaused) cam.GetComponent<CinemachineInputAxisController>().enabled = false;
+        else if(!gameIsPaused) cam.GetComponent<CinemachineInputAxisController>().enabled = true;
+
+
+
+        if (Input.GetKey("space") && readyToJump && grounded && !gameIsPaused) Jump();
         
         SpeedControl(); //sets a speed limit but may prevent boops in the future (may need changing) 
         
-        transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x, cam.rotation.eulerAngles.y, transform.rotation.z));
+        transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x, cam.transform.rotation.eulerAngles.y, transform.rotation.z));
         //horizontally rotate the player to match camera
 
 
@@ -48,8 +58,7 @@ public class player : NetworkBehaviour
 
     void FixedUpdate()
     {
-        if(!isLocalPlayer) return;
-        Move(); //movement in fixed update to ensure differing frame rates dont interfere with player speed
+        if(!gameIsPaused && isLocalPlayer) Move(); //movement in fixed update to ensure differing frame rates dont interfere with player speed
     }
 
     public void Move()
