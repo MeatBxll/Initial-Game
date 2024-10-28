@@ -20,7 +20,7 @@ public class player : NetworkBehaviour
     private bool gameIsPaused;
 
     Rigidbody rb;
-    [SerializeField] GameObject cam;
+    [SerializeField] private GameObject cam;
 
     // [SerializeField] private Animator animator;
 
@@ -32,6 +32,8 @@ public class player : NetworkBehaviour
 
         _pauseMenu = GameObject.FindGameObjectWithTag("playerUI");
         _pauseMenu.GetComponent<PlayerUI>().OnPlayerStart();
+
+        
     }
 
     private void Update()
@@ -44,7 +46,20 @@ public class player : NetworkBehaviour
         if(gameIsPaused) cam.GetComponent<CinemachineInputAxisController>().enabled = false;
         else if(!gameIsPaused) cam.GetComponent<CinemachineInputAxisController>().enabled = true;
 
+        
+        //sets the sensitivity of the player
+        foreach (var c in cam.GetComponent<CinemachineInputAxisController>().Controllers)
+        {
+            if (c.Name == "Look X (Pan)")
+            {
+                c.Input.LegacyGain = PlayerPrefs.GetFloat("Sensitivity") * 200f;
 
+            }
+            if (c.Name == "Look Y (Tilt)")
+            {
+                c.Input.LegacyGain = PlayerPrefs.GetFloat("Sensitivity") * -200f;
+            }
+        }
 
         if (Input.GetKey("space") && readyToJump && grounded && !gameIsPaused) Jump();
         

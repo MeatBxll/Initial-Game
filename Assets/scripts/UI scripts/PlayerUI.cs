@@ -10,6 +10,7 @@ public class PlayerUI : MonoBehaviour
     public bool playerInScene;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject[] playerUI;
+    [SerializeField] private GameObject[] optionsMenus;
 
 
     public int currentBulletCount;
@@ -17,11 +18,18 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI currentBulletCountText;
     [SerializeField] private TextMeshProUGUI maxBulletCountText;
 
+    public float PlayerSensitivity;
+
     private void Update()
     {
         if(playerInScene)
         {
-            if (Input.GetKeyDown(KeyCode.Escape)) OpenMenu();
+            if (Input.GetKeyDown(KeyCode.Escape)) 
+            {
+                GamePaused = !GamePaused;
+                DisableCursor();
+            }
+
             BulletAmountVisuals();
             
         }
@@ -31,17 +39,6 @@ public class PlayerUI : MonoBehaviour
             GamePaused = false;
         }
     }
-
-
-    public void OpenMenu()
-    {
-        GamePaused = !GamePaused;
-        DisableCursor();
-        if(GamePaused == true) pauseMenu.SetActive(true);
-        else pauseMenu.SetActive(false);
-
-    }
-
     private void DisableCursor()
     {
         if(GamePaused == true) 
@@ -49,27 +46,74 @@ public class PlayerUI : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             foreach(GameObject i in playerUI) i.SetActive(false);
+            pauseMenu.SetActive(true);
         }
         else 
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             foreach(GameObject i in playerUI) i.SetActive(true);
+            pauseMenu.SetActive(false);
+            foreach(GameObject i in optionsMenus) i.SetActive(false);
         }
     }
 
     public void Resume()
     {
-        OpenMenu();
+        GamePaused = false;
+        DisableCursor();
     }
     public void Options()
     {
-
+        foreach(GameObject i in optionsMenus) if(i.name == "OptionsMenu") i.SetActive(true); 
+        pauseMenu.SetActive(false);
     }
     public void LeaveGame()
     {
         Application.Quit();
     }
+
+
+
+    //Options Menus
+    public void Back()
+    {
+        foreach(GameObject i in optionsMenus) i.SetActive(false); 
+        pauseMenu.SetActive(true);
+    }
+
+    public void ControlsMenu()
+    {
+        foreach(GameObject i in optionsMenus)
+        {
+            if(i.name == "ControlsMenu") i.SetActive(true);
+            else i.SetActive(false);
+        }
+        pauseMenu.SetActive(false);
+    }
+
+    public void VideoMenu()
+    {
+        foreach(GameObject i in optionsMenus)
+        {
+            if(i.name == "VideoMenu") i.SetActive(true);
+            else i.SetActive(false);
+        }
+        pauseMenu.SetActive(false);
+    }
+
+    public void AudioMenu()
+    {
+        foreach(GameObject i in optionsMenus)
+        {
+            if(i.name == "AudioMenu") i.SetActive(true);
+            else i.SetActive(false);
+        }
+        pauseMenu.SetActive(false);
+    }
+
+
+
 
     public void OnPlayerStart()
     {
@@ -78,9 +122,9 @@ public class PlayerUI : MonoBehaviour
         GamePaused = false;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-
-        //activates all of the player ui
         foreach(GameObject i in playerUI) i.SetActive(true);
+        foreach(GameObject i in optionsMenus) i.SetActive(false); 
+
     }
 
     public void BulletAmountVisuals()

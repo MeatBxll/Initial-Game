@@ -558,8 +558,8 @@ MonoBehaviour:
         CancelDeltaTime: 0
       InputValue: 0
       Driver:
-        AccelTime: 0.2
-        DecelTime: 0.2
+        AccelTime: 0
+        DecelTime: 0
     - Name: Look Y (Tilt)
       Owner: {fileID: 753875841617656314}
       Enabled: 1
@@ -571,8 +571,8 @@ MonoBehaviour:
         CancelDeltaTime: 0
       InputValue: 0
       Driver:
-        AccelTime: 0.2
-        DecelTime: 0.2
+        AccelTime: 0
+        DecelTime: 0.1
   PlayerIndex: -1
   AutoEnableInputs: 1
 --- !u!1 &1860179816871244481
