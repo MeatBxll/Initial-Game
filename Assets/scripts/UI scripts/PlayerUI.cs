@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using Mirror;
+using UnityEngine.PlayerLoop;
 
 public class PlayerUI : MonoBehaviour
 {
@@ -11,6 +13,8 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject[] playerUI;
     [SerializeField] private GameObject[] optionsMenus;
+    [SerializeField] private GameObject MainMenu;
+    [SerializeField] private NetworkManager NetworkManager;
 
 
     public int currentBulletCount;
@@ -23,6 +27,7 @@ public class PlayerUI : MonoBehaviour
 
     private void Start()
     {
+        DontDestroyOnLoad(gameObject);
         if(PlayerPrefs.GetInt("FullScreenChoice") == 0) Screen.fullScreen = true;
         if(PlayerPrefs.GetInt("FullScreenChoice") == 1) Screen.fullScreen = false;
 
@@ -49,8 +54,8 @@ public class PlayerUI : MonoBehaviour
         }
         else if(GamePaused)
         {
-            DisableCursor();
             GamePaused = false;
+            DisableCursor();
         }
     }
     private void DisableCursor()
@@ -84,7 +89,11 @@ public class PlayerUI : MonoBehaviour
     }
     public void LeaveGame()
     {
-        Application.Quit();
+        pauseMenu.SetActive(false);
+        playerInScene = false;
+        foreach(GameObject i in playerUI) i.SetActive(false);
+        
+        MainMenu.SetActive(true);
     }
 
 

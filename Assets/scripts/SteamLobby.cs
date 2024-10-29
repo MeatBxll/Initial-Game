@@ -5,7 +5,7 @@ using Mirror.BouncyCastle.Pqc.Crypto.Lms;
 
 public class SteamLobby : MonoBehaviour
 {
-    [SerializeField] private GameObject[] MainMenu = null;
+    [SerializeField] private GameObject MainMenu = null;
     private NetworkManager networkManager;
     protected Callback<LobbyCreated_t> lobbyCreated;
     protected Callback<GameLobbyJoinRequested_t> gameLobbyJoinRequested;
@@ -24,17 +24,15 @@ public class SteamLobby : MonoBehaviour
     //needs ability to host server
     public void HostLobby()
     {
-        foreach(GameObject i in MainMenu) i.SetActive(false);
-        // HostButton.SetActive(false);
+        MainMenu.SetActive(false);
         //set to friends only 
-        SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypeFriendsOnly,networkManager.maxConnections);
+        SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypeFriendsOnly, networkManager.maxConnections);
     }
     private void OnLobbyCreated(LobbyCreated_t callback)
     {
         if(callback.m_eResult != EResult.k_EResultOK)
         {
-            foreach(GameObject i in MainMenu) i.SetActive(true);
-            // HostButton.SetActive(true);
+            MainMenu.SetActive(true);
             return;
         }
         networkManager.StartHost();
@@ -52,8 +50,7 @@ public class SteamLobby : MonoBehaviour
         networkManager.networkAddress = hostAddress;
         networkManager.StartClient();
 
-        foreach(GameObject i in MainMenu) i.SetActive(false);
-        // HostButton.SetActive(false);
+        MainMenu.SetActive(false);
 
     }
 }
