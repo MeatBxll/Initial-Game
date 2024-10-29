@@ -40,6 +40,9 @@ public class player : NetworkBehaviour
     {
         if(!isLocalPlayer) return;
 
+        //sets FOV
+        if(PlayerPrefs.GetFloat("FOV") > 50f )
+            cam.GetComponent<Camera>().fieldOfView = PlayerPrefs.GetFloat("FOV");
 
         //disables camera and jump while game is paused
         gameIsPaused = _pauseMenu.GetComponent<PlayerUI>().GamePaused;

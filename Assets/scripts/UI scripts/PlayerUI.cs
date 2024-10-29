@@ -17,9 +17,23 @@ public class PlayerUI : MonoBehaviour
     public int maxBulletCount;
     [SerializeField] private TextMeshProUGUI currentBulletCountText;
     [SerializeField] private TextMeshProUGUI maxBulletCountText;
+    
 
     public float PlayerSensitivity;
 
+    private void Start()
+    {
+        if(PlayerPrefs.GetInt("FullScreenChoice") == 0) Screen.fullScreen = true;
+        if(PlayerPrefs.GetInt("FullScreenChoice") == 1) Screen.fullScreen = false;
+
+        int resolutionIndex = PlayerPrefs.GetInt("ScreenResolutionSaver");
+        if(resolutionIndex == 0) Screen.SetResolution(1920, 1080, Screen.fullScreen);
+        if(resolutionIndex == 1) Screen.SetResolution(2560, 1440, Screen.fullScreen);
+        if(resolutionIndex == 2) Screen.SetResolution(1366, 768, Screen.fullScreen);
+        if(resolutionIndex == 3) Screen.SetResolution(1440, 900, Screen.fullScreen);
+        if(resolutionIndex == 4) Screen.SetResolution(1280, 720, Screen.fullScreen);
+        if(resolutionIndex == 5) Screen.SetResolution(1280, 1024, Screen.fullScreen);        
+    }
     private void Update()
     {
         if(playerInScene)
@@ -124,7 +138,7 @@ public class PlayerUI : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         foreach(GameObject i in playerUI) i.SetActive(true);
         foreach(GameObject i in optionsMenus) i.SetActive(false); 
-
+        QualitySettings.SetQualityLevel(PlayerPrefs.GetInt("QualityFactor"));
     }
 
     public void BulletAmountVisuals()

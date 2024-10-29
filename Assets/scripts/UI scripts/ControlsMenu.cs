@@ -15,6 +15,7 @@ public class ControlsMenu : MonoBehaviour
     [SerializeField] private TMP_InputField sensitivityInputField;
     [SerializeField] private TMP_Text[] keyBindTexts;
     private String keyBindHolder;
+    private String keyBindSaver;
     [SerializeField] private GameObject[] OptionsUIs;
     [SerializeField] private GameObject listeningText;
     private bool listening;
@@ -67,11 +68,8 @@ public class ControlsMenu : MonoBehaviour
         if(listening == true)
         {
             listeningEvent = Event.current;
-            if(listeningEvent != null) if(listeningEvent.isKey) 
-            {
-                Invoke(keyBindHolder,0f);
-                CloseOutListeningEvent();
-            }
+            if(listeningEvent != null) if(listeningEvent.isKey) Invoke(keyBindHolder,0f);
+
         }
     }
     private void SetupListeningEvent()
@@ -90,26 +88,41 @@ public class ControlsMenu : MonoBehaviour
     }
     public void Forward()
     {
-        keyBindHolder = "forwardText";
-        SetupListeningEvent();
+        keyBindHolder = "Forward";
+        if(listening) CloseOutListeningEvent();
+        else SetupListeningEvent();
+        
     }
 
     public void Backward()
     {
-        keyBindHolder = "backwardText";
-        SetupListeningEvent();
+        keyBindHolder = "Backward";
+        if(listening) CloseOutListeningEvent();
+        else SetupListeningEvent();
     }
 
     public void Left()
     {
-        keyBindHolder = "leftText";
-        SetupListeningEvent();
+        keyBindHolder = "Left";
+        if(listening) CloseOutListeningEvent();
+        else SetupListeningEvent();
     }
 
     public void Right()
     {
-        keyBindHolder = "rightText";
-        SetupListeningEvent();
+        keyBindHolder = "Right";
+        if(listening) CloseOutListeningEvent();
+        else SetupListeningEvent();
+    }
+    public void Jump()
+    {
+        keyBindHolder = "Jump";
+        if(listening) 
+        {
+            
+            CloseOutListeningEvent();
+        }
+        else SetupListeningEvent();
     }
 
 
