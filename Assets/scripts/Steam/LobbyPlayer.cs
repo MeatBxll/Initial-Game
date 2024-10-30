@@ -3,24 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.SceneManagement;
+using System.Linq;
+using UnityEngine.UI;
 
 public class LobbyPlayer : NetworkBehaviour
 {
-    public GameObject networkManager;
-    private GameObject[] MenuSceneAssets;
+    public NetworkManagerSteam networkManager;
     public bool IsLeader;
     public bool IsRedTeam;
+    public Toggle AbleToSwitchTeamsToggle;
+    [SerializeField] private PrivateLobby privateLobby;
+    public List<GameObject> lobbyPlayers;
 
-    void Start()
+    public bool AbleToSwitchTeams = true;
+
+    private void Update()
     {
-        
-        
+        if(lobbyPlayers.Count != networkManager.LobbyPlayers.Count)
+        {
+            lobbyPlayers.Clear();
+            lobbyPlayers = networkManager.LobbyPlayers;
+        }
     }
 
     public void LobbyPlayerLeaveGame()
     {
-        if(isServer && isLocalPlayer) networkManager.GetComponent<NetworkManagerSteam>().StopHost();
-        else if(isLocalPlayer) networkManager.GetComponent<NetworkManagerSteam>().StopClient();
+        if(isServer && isLocalPlayer) networkManager.StopHost();
+        else if(isLocalPlayer) networkManager.StopClient();
 
         if(SceneManager.GetActiveScene().name != "menuScene")SceneManager.LoadScene("menuScene");
         else 
@@ -29,8 +38,17 @@ public class LobbyPlayer : NetworkBehaviour
             mainMenu.mainMenu.SetActive(true);
         }
         
-        networkManager.GetComponent<NetworkManagerSteam>().ClearLobbyPlayers();
+        networkManager.ClearLobbyPlayers();
         
         
+    }
+
+    public void ChangeTeams()
+    {
+        if(SceneManager.GetActiveScene().name == "menuScene" && AbleToSwitchTeams && isLocalPlayer)
+        {
+            if(isLocalPlayer) IsRedTeam = !IsRedTeam;
+            privateLobby.ChangeTeamsButton();
+        }
     }
 }

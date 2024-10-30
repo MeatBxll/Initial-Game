@@ -13,6 +13,8 @@ public class NetworkManagerSteam : NetworkManager
 {
     public List<GameObject> LobbyPlayers = new List<GameObject>();
 
+    public bool UpdateToPlayerlistRequired;
+
     public override void OnServerConnect(NetworkConnectionToClient conn)
     {
         if(numPlayers >= maxConnections)
@@ -38,11 +40,12 @@ public class NetworkManagerSteam : NetworkManager
             roomPlayerInstace.name = SteamFriends.GetPersonaName();
 
             roomPlayerInstace.GetComponent<LobbyPlayer>().IsLeader = isLeader;
-            roomPlayerInstace.GetComponent<LobbyPlayer>().networkManager = gameObject;
+            roomPlayerInstace.GetComponent<LobbyPlayer>().networkManager = gameObject.GetComponent<NetworkManagerSteam>();
             
             LobbyPlayers.Add(roomPlayerInstace);
 
             NetworkServer.AddPlayerForConnection(conn, roomPlayerInstace.gameObject);
+
         }
     }
 
@@ -52,7 +55,6 @@ public class NetworkManagerSteam : NetworkManager
         {
             var player = conn.identity.gameObject;
             LobbyPlayers.Remove(player);
-
         }
 
         base.OnServerDisconnect(conn);
