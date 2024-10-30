@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Steamworks;
 using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] private GameObject PlayMenu;
     [SerializeField] private GameObject[] OptionsMenuAndBackButtons;
-    [SerializeField] private GameObject mainMenu;
+    public GameObject mainMenu;
+    [SerializeField] private GameObject PrivateLobby;
+    [SerializeField] private NetworkManagerSteam NetworkManagerSteam;
 
     public void OptionsMenuFromMainMenu(bool i)
     {
@@ -28,5 +31,4 @@ public class MainMenu : MonoBehaviour
         mainMenu.SetActive(!i);
         PlayMenu.SetActive(i);
     }
-
 }

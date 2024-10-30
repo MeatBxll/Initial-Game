@@ -5,7 +5,10 @@ using Mirror.BouncyCastle.Pqc.Crypto.Lms;
 
 public class SteamLobby : MonoBehaviour
 {
-    [SerializeField] private GameObject MainMenu = null;
+    [SerializeField] private GameObject[] MainMenuElements = null;
+    [SerializeField] private GameObject PlayMenu = null;
+    [SerializeField] private GameObject PrivateLobby = null;
+
     private NetworkManager networkManager;
     protected Callback<LobbyCreated_t> lobbyCreated;
     protected Callback<GameLobbyJoinRequested_t> gameLobbyJoinRequested;
@@ -13,26 +16,28 @@ public class SteamLobby : MonoBehaviour
     private const string HostAddressKey = "HostAddress";
     private void Start()
     {
-        networkManager = GetComponent<NetworkManager>();
+        networkManager = GetComponent<NetworkManagerSteam>();
         if(!SteamManager.Initialized) return;
-
         lobbyCreated = Callback<LobbyCreated_t>.Create(OnLobbyCreated);
         gameLobbyJoinRequested = Callback<GameLobbyJoinRequested_t>.Create(OnGameLobbyJoinRequested);
         lobbyEntered = Callback<LobbyEnter_t>.Create(OnLobbyEntered);
 
     }
     //needs ability to host server
-    public void HostLobby()
+    public void HostLobby(bool i)
     {
-        MainMenu.SetActive(false);
-        //set to friends only 
-        SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypeFriendsOnly, networkManager.maxConnections);
+
+        PlayMenu.SetActive(!i);
+        // PrivateLobby.SetActive(i);
+        if(i) SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypeFriendsOnly, networkManager.maxConnections); //set to friends only 
+        else networkManager.StopHost();
     }
     private void OnLobbyCreated(LobbyCreated_t callback)
     {
         if(callback.m_eResult != EResult.k_EResultOK)
         {
-            MainMenu.SetActive(true);
+            PlayMenu.SetActive(true);
+            // PrivateLobby.SetActive(false);
             return;
         }
         networkManager.StartHost();
@@ -50,7 +55,7 @@ public class SteamLobby : MonoBehaviour
         networkManager.networkAddress = hostAddress;
         networkManager.StartClient();
 
-        MainMenu.SetActive(false);
-
+        foreach(GameObject i in MainMenuElements) i.SetActive(false);
+        PrivateLobby.SetActive(true);
     }
 }
