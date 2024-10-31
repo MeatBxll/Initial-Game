@@ -5,6 +5,7 @@ using Mirror;
 using UnityEngine.SceneManagement;
 using System.Linq;
 using UnityEngine.UI;
+using Steamworks;
 
 public class LobbyPlayer : NetworkBehaviour
 {
@@ -50,5 +51,10 @@ public class LobbyPlayer : NetworkBehaviour
             if(isLocalPlayer) IsRedTeam = !IsRedTeam;
             privateLobby.ChangeTeamsButton();
         }
+    }
+
+    public void OpenSteamFriendsList()
+    {
+        if(isLocalPlayer) SteamFriends.ActivateGameOverlayInviteDialog(SteamUser.GetSteamID());
     }
 }
