@@ -25,14 +25,14 @@ public class projectileGun1 : NetworkBehaviour
     
     private void Start()
     {
-        if(isLocalPlayer != true) return;
+        if(isOwned != true) return;
         numbOfShots = maxMagSize;
         GameObject.FindGameObjectWithTag("playerUI").GetComponent<PlayerUI>().maxBulletCount = maxMagSize;
         
     }
     private void FixedUpdate() 
     {
-        if(isLocalPlayer != true) return;
+        if(isOwned != true) return;
 
         //disables gun if game is paused
         if(GameObject.FindGameObjectWithTag("playerUI").GetComponent<PlayerUI>().GamePaused) return;
@@ -85,7 +85,6 @@ public class projectileGun1 : NetworkBehaviour
     private void reload()
     {
         numbOfShots = maxMagSize;
-        Debug.Log(numbOfShots);
         gunLive = true;
         reloading = false;
     }

@@ -4810,7 +4810,7 @@ GameObject:
   - component: {fileID: 1685888359964665354}
   m_Layer: 0
   m_Name: LobbyPlayer
-  m_TagString: Untagged
+  m_TagString: LobbyPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4869,6 +4869,7 @@ MonoBehaviour:
   AbleToSwitchTeamsToggle: {fileID: 0}
   privateLobby: {fileID: 5958891080397555675}
   lobbyPlayers: []
+  playerPrefab: {fileID: 6973667879998118185, guid: 1d25489f61deba3499ce24d69e467503, type: 3}
   AbleToSwitchTeams: 1
 --- !u!1 &5374487961678060412
 GameObject:
@@ -7441,7 +7442,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4178893777277854378}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5958891080397555675}
+        m_TargetAssemblyTypeName: PrivateLobby, Assembly-CSharp
+        m_MethodName: StartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7819533569822446648
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,6 +15,8 @@ public class NetworkManagerSteam : NetworkManager
 
     public bool UpdateToPlayerlistRequired;
 
+    public String SelectedMap = "Map1";
+
     public override void OnServerConnect(NetworkConnectionToClient conn)
     {
         if(numPlayers >= maxConnections)
@@ -42,11 +44,22 @@ public class NetworkManagerSteam : NetworkManager
             roomPlayerInstace.GetComponent<LobbyPlayer>().IsLeader = isLeader;
             roomPlayerInstace.GetComponent<LobbyPlayer>().networkManager = gameObject.GetComponent<NetworkManagerSteam>();
             
+            roomPlayerInstace.GetComponent<LobbyPlayer>().conn = conn;
+
             LobbyPlayers.Add(roomPlayerInstace);
 
-            NetworkServer.AddPlayerForConnection(conn, roomPlayerInstace.gameObject);
+            NetworkServer.AddPlayerForConnection(conn, roomPlayerInstace);
 
         }
+    }
+
+    public void LoadMap()
+    {
+        SceneManager.LoadScene(SelectedMap);
+    }
+    public void MapLoaded()
+    {
+        foreach(GameObject g in GameObject.FindGameObjectsWithTag("LobbyPlayer")) g.GetComponent<LobbyPlayer>().GameLoaded();
     }
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)

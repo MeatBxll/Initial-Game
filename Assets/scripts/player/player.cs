@@ -27,7 +27,7 @@ public class player : NetworkBehaviour
 
     void Start()
     {
-        if(!isLocalPlayer) return;
+        if(!isOwned) return;
         rb = GetComponent<Rigidbody>();
 
         _pauseMenu = GameObject.FindGameObjectWithTag("playerUI");
@@ -38,7 +38,7 @@ public class player : NetworkBehaviour
 
     private void Update()
     {
-        if(!isLocalPlayer) return;
+        if(!isOwned) return;
 
         //sets FOV
         if(PlayerPrefs.GetFloat("FOV") > 50f )
@@ -76,7 +76,7 @@ public class player : NetworkBehaviour
 
     void FixedUpdate()
     {
-        if(!gameIsPaused && isLocalPlayer) Move(); //movement in fixed update to ensure differing frame rates dont interfere with player speed
+        if(!gameIsPaused && isOwned) Move(); //movement in fixed update to ensure differing frame rates dont interfere with player speed
     }
 
     public void Move()

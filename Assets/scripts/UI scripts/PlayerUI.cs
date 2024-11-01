@@ -13,7 +13,6 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject[] playerUI;
     [SerializeField] private GameObject[] optionsMenus;
-    [SerializeField] private GameObject MainMenu;
     [SerializeField] private NetworkManager NetworkManager;
 
 
@@ -27,7 +26,6 @@ public class PlayerUI : MonoBehaviour
 
     private void Start()
     {
-        DontDestroyOnLoad(gameObject);
         if(PlayerPrefs.GetInt("FullScreenChoice") == 0) Screen.fullScreen = true;
         if(PlayerPrefs.GetInt("FullScreenChoice") == 1) Screen.fullScreen = false;
 
@@ -89,11 +87,8 @@ public class PlayerUI : MonoBehaviour
     }
     public void LeaveGame()
     {
-        pauseMenu.SetActive(false);
-        playerInScene = false;
-        foreach(GameObject i in playerUI) i.SetActive(false);
-        
-        MainMenu.SetActive(true);
+        GameObject[] g = GameObject.FindGameObjectsWithTag("LobbyPlayer");
+        foreach(GameObject i in g) i.GetComponent<LobbyPlayer>().LobbyPlayerLeaveGame();
     }
 
 

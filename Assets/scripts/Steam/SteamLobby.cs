@@ -5,10 +5,7 @@ using Mirror.BouncyCastle.Pqc.Crypto.Lms;
 
 public class SteamLobby : MonoBehaviour
 {
-    [SerializeField] private GameObject[] MainMenuElements = null;
-    [SerializeField] private GameObject PlayMenu = null;
-    [SerializeField] private GameObject PrivateLobby = null;
-
+    private GameObject MainMenu;
     private NetworkManager networkManager;
     protected Callback<LobbyCreated_t> lobbyCreated;
     protected Callback<GameLobbyJoinRequested_t> gameLobbyJoinRequested;
@@ -24,20 +21,17 @@ public class SteamLobby : MonoBehaviour
 
     }
     //needs ability to host server
-    public void HostLobby(bool i)
+    public void HostLobby()
     {
-
-        PlayMenu.SetActive(!i);
-        // PrivateLobby.SetActive(i);
-        if(i) SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypeFriendsOnly, networkManager.maxConnections); //set to friends only 
-        else networkManager.StopHost();
+        MainMenu = GameObject.FindGameObjectWithTag("MainMenu");
+        MainMenu.GetComponent<MainMenu>().PlayMenu.SetActive(false);
+        SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypeFriendsOnly, networkManager.maxConnections); //set to friends only 
     }
     private void OnLobbyCreated(LobbyCreated_t callback)
     {
         if(callback.m_eResult != EResult.k_EResultOK)
         {
-            PlayMenu.SetActive(true);
-            // PrivateLobby.SetActive(false);
+            MainMenu.GetComponent<MainMenu>().PlayMenu.SetActive(false);
             return;
         }
         networkManager.StartHost();
@@ -55,7 +49,9 @@ public class SteamLobby : MonoBehaviour
         networkManager.networkAddress = hostAddress;
         networkManager.StartClient();
 
-        foreach(GameObject i in MainMenuElements) i.SetActive(false);
-        PrivateLobby.SetActive(true);
+        for (int i = 0; i < MainMenu.transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(false);
+        }
     }
 }

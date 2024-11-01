@@ -6,11 +6,9 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] private GameObject PlayMenu;
+    public GameObject PlayMenu;
     [SerializeField] private GameObject[] OptionsMenuAndBackButtons;
     public GameObject mainMenu;
-    [SerializeField] private GameObject PrivateLobby;
-    [SerializeField] private NetworkManagerSteam NetworkManagerSteam;
 
     public void OptionsMenuFromMainMenu(bool i)
     {
@@ -30,5 +28,10 @@ public class MainMenu : MonoBehaviour
     {
         mainMenu.SetActive(!i);
         PlayMenu.SetActive(i);
+    }
+
+    public void HostPrivateMatch()
+    {
+        GameObject.Find("NetworkManager").GetComponent<SteamLobby>().HostLobby();
     }
 }

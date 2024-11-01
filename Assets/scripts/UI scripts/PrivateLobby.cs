@@ -4,6 +4,8 @@ using UnityEngine;
 using Unity.VisualScripting;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class PrivateLobby : MonoBehaviour
 {
@@ -84,5 +86,14 @@ public class PrivateLobby : MonoBehaviour
     private void ChangeTeamsButtonDelay()
     {
         foreach(GameObject g in HostOnlyOptions) if(g.name == "ChangeTeamsButton") g.GetComponent<Button>().interactable = true;
+    }
+
+    public void StartGame()
+    {
+        if(SceneManager.GetActiveScene().name == "menuScene")
+        {
+            GameObject.Find("NetworkManager").GetComponent<NetworkManagerSteam>().LoadMap();
+            Destroy(gameObject);
+        }
     }
 }
