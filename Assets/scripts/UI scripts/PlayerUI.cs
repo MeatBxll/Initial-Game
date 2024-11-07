@@ -157,8 +157,9 @@ public class PlayerUI : MonoBehaviour
         currentHealth.text = i.ToString();
         maxHealth.text = g.ToString();
 
-        healthSlider.value = i;
         healthSlider.maxValue = g;
+        healthSlider.value = i;
+
     }
 
 }

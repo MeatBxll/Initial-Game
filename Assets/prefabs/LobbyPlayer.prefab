@@ -4871,6 +4871,7 @@ MonoBehaviour:
   lobbyPlayers: []
   playerPrefab: {fileID: 6973667879998118185, guid: 1d25489f61deba3499ce24d69e467503, type: 3}
   AbleToSwitchTeams: 1
+  respawnTimer: 4
 --- !u!1 &5374487961678060412
 GameObject:
   m_ObjectHideFlags: 0

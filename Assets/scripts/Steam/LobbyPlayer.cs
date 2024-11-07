@@ -22,6 +22,8 @@ public class LobbyPlayer : NetworkBehaviour
     public bool AbleToSwitchTeams = true;
 
     public NetworkConnectionToClient conn;
+    public float respawnTimer;
+    private GameObject myPlayer;
 
     private void Start()
     {
@@ -93,7 +95,21 @@ public class LobbyPlayer : NetworkBehaviour
     [Command]
     private void CmdSpawnPlayer()
     {
-        GameObject myPlayer = Instantiate(playerPrefab, yourTeamsSpawnLocation.transform.position, yourTeamsSpawnLocation.transform.rotation);
+        myPlayer = Instantiate(playerPrefab, yourTeamsSpawnLocation.transform.position, yourTeamsSpawnLocation.transform.rotation);
+        myPlayer.GetComponentInChildren<Health>().myLobbyPlayer = gameObject;
+        myPlayer.GetComponentInChildren<Health>().IsRedTeam = IsRedTeam;
         NetworkServer.Spawn(myPlayer, conn);
+    }
+
+    public void KillPlayer()
+    {
+        myPlayer.SetActive(false);
+        Invoke("RespawnPlayer", respawnTimer);
+    }
+
+    public void RespawnPlayer()
+    {
+        myPlayer.SetActive(true);
+        myPlayer.GetComponentInChildren<Health>().Respawn(yourTeamsSpawnLocation.transform);
     }
 }

@@ -53,7 +53,7 @@ public class projectileGun1 : NetworkBehaviour
             //fire with left mouse key
             if(Input.GetKey(KeyCode.Mouse0))
             {
-                CmdSpawnBullet();
+                CmdSpawnBullet(gameObject.GetComponent<Health>().IsRedTeam);
                 numbOfShots--;
                 Invoke("countAmmo", delayBetweenShots);
                 gunLive = false;
@@ -64,10 +64,11 @@ public class projectileGun1 : NetworkBehaviour
     }
 
     [Command]
-    public void CmdSpawnBullet()
+    public void CmdSpawnBullet(bool g)
     {
         GameObject bulletClone = Instantiate(gun1Projectile, endOfBarrel.position, endOfBarrel.rotation);
         bulletClone.GetComponent<Rigidbody>().velocity = endOfBarrel.transform.forward * projectileSpeed;
+        bulletClone.GetComponent<projectile>().redTeamBullet = g;
         NetworkServer.Spawn(bulletClone);
         Destroy(bulletClone, 10);
     }
