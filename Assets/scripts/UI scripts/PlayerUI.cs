@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using Mirror;
 using UnityEngine.PlayerLoop;
+using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
@@ -16,10 +17,12 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private NetworkManager NetworkManager;
 
 
-    public int currentBulletCount;
-    public int maxBulletCount;
     [SerializeField] private TextMeshProUGUI currentBulletCountText;
     [SerializeField] private TextMeshProUGUI maxBulletCountText;
+
+    [SerializeField] private TextMeshProUGUI maxHealth;
+    [SerializeField] private TextMeshProUGUI currentHealth;
+    [SerializeField] private Slider healthSlider;
     
 
     public float PlayerSensitivity;
@@ -47,8 +50,6 @@ public class PlayerUI : MonoBehaviour
                 DisableCursor();
             }
 
-            BulletAmountVisuals();
-            
         }
         else if(GamePaused)
         {
@@ -145,10 +146,19 @@ public class PlayerUI : MonoBehaviour
         QualitySettings.SetQualityLevel(PlayerPrefs.GetInt("QualityFactor"));
     }
 
-    public void BulletAmountVisuals()
+    public void BulletAmountVisuals(int i, int g)
     {
-        currentBulletCountText.text = currentBulletCount.ToString();
-        maxBulletCountText.text = maxBulletCount.ToString();
+        currentBulletCountText.text = i.ToString();
+        maxBulletCountText.text = g.ToString();
+    }
+
+    public void PlayerHealthVisuals(int i, int g)
+    {
+        currentHealth.text = i.ToString();
+        maxHealth.text = g.ToString();
+
+        healthSlider.value = i;
+        healthSlider.maxValue = g;
     }
 
 }

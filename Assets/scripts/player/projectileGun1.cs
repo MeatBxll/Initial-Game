@@ -27,7 +27,7 @@ public class projectileGun1 : NetworkBehaviour
     {
         if(isOwned != true) return;
         numbOfShots = maxMagSize;
-        GameObject.FindGameObjectWithTag("playerUI").GetComponent<PlayerUI>().maxBulletCount = maxMagSize;
+        GameObject.FindGameObjectWithTag("playerUI").GetComponent<PlayerUI>().BulletAmountVisuals(maxMagSize , maxMagSize);
         
     }
     private void FixedUpdate() 
@@ -37,7 +37,6 @@ public class projectileGun1 : NetworkBehaviour
         //disables gun if game is paused
         if(GameObject.FindGameObjectWithTag("playerUI").GetComponent<PlayerUI>().GamePaused) return;
         gunMechanics();
-        GameObject.FindGameObjectWithTag("playerUI").GetComponent<PlayerUI>().currentBulletCount = numbOfShots;
 
     }
 
@@ -58,6 +57,8 @@ public class projectileGun1 : NetworkBehaviour
                 numbOfShots--;
                 Invoke("countAmmo", delayBetweenShots);
                 gunLive = false;
+                GameObject.FindGameObjectWithTag("playerUI").GetComponent<PlayerUI>().BulletAmountVisuals(numbOfShots, maxMagSize);
+
             }
         }
     }
@@ -87,5 +88,6 @@ public class projectileGun1 : NetworkBehaviour
         numbOfShots = maxMagSize;
         gunLive = true;
         reloading = false;
+        GameObject.FindGameObjectWithTag("playerUI").GetComponent<PlayerUI>().BulletAmountVisuals(numbOfShots, maxMagSize);
     }
 }
