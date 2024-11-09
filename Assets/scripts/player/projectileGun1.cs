@@ -22,6 +22,7 @@ public class projectileGun1 : NetworkBehaviour
     [SerializeField] GameObject gun1Projectile;
     [SerializeField] private float projectileSpeed;
     [SerializeField] Transform endOfBarrel;
+    [SerializeField] Animator animator;
     
     private void Start()
     {
@@ -83,6 +84,7 @@ public class projectileGun1 : NetworkBehaviour
     {
         reloading = true;
         Invoke("reload",reloadTime);
+        animator.SetFloat("speed", 0);
     }
     private void reload()
     {

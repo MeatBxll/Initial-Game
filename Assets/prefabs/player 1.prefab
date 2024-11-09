@@ -1760,6 +1760,7 @@ GameObject:
   - component: {fileID: 7230059153501056396}
   - component: {fileID: 3536702273479948593}
   - component: {fileID: 3529768789423126165}
+  - component: {fileID: 136951233157046038}
   m_Layer: 0
   m_Name: player 1
   m_TagString: Player
@@ -1853,6 +1854,34 @@ MonoBehaviour:
   rotationSensitivity: 0.01
   positionPrecision: 0.01
   scalePrecision: 0.01
+--- !u!95 &136951233157046038
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6973667879998118185}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: b0c5e04a9cb9d9648933f15f42c31044, type: 3}
+  m_Controller: {fileID: 9100000, guid: 8c7f050a896ab26409e0d68c02349661, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
+    'mixamorig:LeftHandThumb2'\n\tTransform 'mixamorig:LeftHandIndex1'\n\tTransform
+    'mixamorig:Spine1'\n\tTransform 'mixamorig:LeftToeBase'\n\tTransform 'mixamorig:LeftHandThumb3'\n\tTransform
+    'mixamorig:LeftLeg'\n\tTransform 'mixamorig:LeftShoulder'\n\tTransform 'mixamorig:RightFoot'\n\tand
+    more ...\n\tFrom animation clip 'Breathing Idle'\n\tFrom animation clip 'Walking'\n\tFrom
+    animation clip 'Reloading'"
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7124387317485427224
 GameObject:
   m_ObjectHideFlags: 0
@@ -2352,6 +2381,7 @@ MonoBehaviour:
   gun1Projectile: {fileID: 3992201621267225016, guid: d7736ef06219e9341a11d7224d411e2c, type: 3}
   projectileSpeed: 20
   endOfBarrel: {fileID: 109571768944535505}
+  animator: {fileID: 136951233157046038}
 --- !u!114 &8739252082704364496
 MonoBehaviour:
   m_ObjectHideFlags: 0
