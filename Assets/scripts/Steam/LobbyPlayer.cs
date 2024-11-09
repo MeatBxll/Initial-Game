@@ -99,6 +99,8 @@ public class LobbyPlayer : NetworkBehaviour
         myPlayer.GetComponentInChildren<Health>().myLobbyPlayer = gameObject;
         myPlayer.GetComponentInChildren<Health>().IsRedTeam = IsRedTeam;
         NetworkServer.Spawn(myPlayer, conn);
+
+        if(isOwned) myPlayer.GetComponentInChildren<Slider>().gameObject.SetActive(false);
     }
 
     public void KillPlayer()
@@ -111,5 +113,12 @@ public class LobbyPlayer : NetworkBehaviour
     {
         myPlayer.SetActive(true);
         myPlayer.GetComponentInChildren<Health>().Respawn(yourTeamsSpawnLocation.transform);
+    }
+
+    public void PlayerHealthBar(float i, float g)
+    {
+        if(isOwned) return;
+        myPlayer.GetComponentInChildren<Slider>().maxValue = g;
+        myPlayer.GetComponentInChildren<Slider>().value = i;
     }
 }

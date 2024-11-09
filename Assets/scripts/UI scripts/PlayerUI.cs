@@ -152,7 +152,7 @@ public class PlayerUI : MonoBehaviour
         maxBulletCountText.text = g.ToString();
     }
 
-    public void PlayerHealthVisuals(int i, int g)
+    public void PlayerHealthVisuals(float i, float g)
     {
         currentHealth.text = i.ToString();
         maxHealth.text = g.ToString();
