@@ -19,10 +19,10 @@ public class player : NetworkBehaviour
     private GameObject _pauseMenu;
     private bool gameIsPaused;
 
-    Rigidbody rb;
+    private Rigidbody rb;
     [SerializeField] private GameObject cam;
 
-    // [SerializeField] private Animator animator;
+    [SerializeField] private Animator animator;
 
 
     void Start()
@@ -33,7 +33,6 @@ public class player : NetworkBehaviour
         _pauseMenu = GameObject.FindGameObjectWithTag("playerUI");
         _pauseMenu.GetComponent<PlayerUI>().OnPlayerStart();
 
-        
     }
 
     private void Update()
@@ -89,15 +88,14 @@ public class player : NetworkBehaviour
         float xMove = Input.GetAxisRaw("Horizontal"); // d key changes value to 1, a key changes value to -1
         float zMove = Input.GetAxisRaw("Vertical"); // w key changes value to 1, s key changes value to -1
 
-        /*
         //animates walking running and idle
         if(new Vector3(xMove, 0, zMove) == Vector3.zero)
-            animator.SetFloat("speed", 0);
-        else if(!Input.GetKey(KeyCode.LeftShift))
-            animator.SetFloat("speed", 1);
+        {
+            animator.SetFloat("Speed", 0);
+        }
         else
-            animator.SetFloat("speed", 2);
-        */
+            animator.SetFloat("Speed", 1);
+        
 
 
         if (Input.GetKey(KeyCode.LeftShift)) sprintSpeed = speed * sprintMultiplier;

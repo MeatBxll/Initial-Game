@@ -87,7 +87,6 @@ public class LobbyPlayer : NetworkBehaviour
                 }
                 
             } 
-            Debug.Log(yourTeamsSpawnLocation.name);
             CmdSpawnPlayer();
         }
     }

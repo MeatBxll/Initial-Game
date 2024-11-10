@@ -84,7 +84,6 @@ public class projectileGun1 : NetworkBehaviour
     {
         reloading = true;
         Invoke("reload",reloadTime);
-        animator.SetFloat("speed", 0);
     }
     private void reload()
     {
