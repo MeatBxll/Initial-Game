@@ -2,6 +2,7 @@ using UnityEngine;
 using Mirror;
 using UnityEditor;
 using Unity.Cinemachine;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 public class player : NetworkBehaviour
 {
@@ -22,8 +23,7 @@ public class player : NetworkBehaviour
     private Rigidbody rb;
     [SerializeField] private GameObject cam;
 
-    [SerializeField] private Animator animator;
-
+    public Animator animator;
 
     void Start()
     {
@@ -88,14 +88,9 @@ public class player : NetworkBehaviour
         float xMove = Input.GetAxisRaw("Horizontal"); // d key changes value to 1, a key changes value to -1
         float zMove = Input.GetAxisRaw("Vertical"); // w key changes value to 1, s key changes value to -1
 
-        //animates walking running and idle
-        if(new Vector3(xMove, 0, zMove) == Vector3.zero)
-        {
-            animator.SetFloat("Speed", 0);
-        }
-        else
-            animator.SetFloat("Speed", 1);
-        
+        //animates walking and idle
+        if(new Vector3(xMove, 0, zMove) == Vector3.zero) animator.SetBool("isWalking", false);
+        else animator.SetBool("isWalking", true);
 
 
         if (Input.GetKey(KeyCode.LeftShift)) sprintSpeed = speed * sprintMultiplier;
@@ -135,5 +130,4 @@ public class player : NetworkBehaviour
     {
         readyToJump = true;
     }
-
 }

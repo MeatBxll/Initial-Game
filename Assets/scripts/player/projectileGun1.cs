@@ -54,6 +54,7 @@ public class projectileGun1 : NetworkBehaviour
             //fire with left mouse key
             if(Input.GetKey(KeyCode.Mouse0))
             {
+                gameObject.GetComponent<player>().animator.SetBool("isShooting", true);
                 CmdSpawnBullet(gameObject.GetComponent<Health>().IsRedTeam);
                 numbOfShots--;
                 Invoke("countAmmo", delayBetweenShots);
@@ -84,9 +85,11 @@ public class projectileGun1 : NetworkBehaviour
     {
         reloading = true;
         Invoke("reload",reloadTime);
+        gameObject.GetComponent<player>().animator.SetBool("isReloading", true);
     }
     private void reload()
     {
+        gameObject.GetComponent<player>().animator.SetBool("isReloading", false);
         numbOfShots = maxMagSize;
         gunLive = true;
         reloading = false;
