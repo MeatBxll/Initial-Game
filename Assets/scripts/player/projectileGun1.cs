@@ -22,13 +22,13 @@ public class projectileGun1 : NetworkBehaviour
     [SerializeField] GameObject gun1Projectile;
     [SerializeField] private float projectileSpeed;
     [SerializeField] Transform endOfBarrel;
-    [SerializeField] Animator animator;
     
     private void Start()
     {
         if(isOwned != true) return;
         numbOfShots = maxMagSize;
         GameObject.FindGameObjectWithTag("playerUI").GetComponent<PlayerUI>().BulletAmountVisuals(maxMagSize , maxMagSize);
+        gameObject.GetComponent<player>().animator.SetFloat("shootTime", delayBetweenShots);
         
     }
     private void FixedUpdate() 
@@ -77,6 +77,7 @@ public class projectileGun1 : NetworkBehaviour
 
     private void countAmmo()
     {
+        gameObject.GetComponent<player>().animator.SetBool("isShooting", false);
         if(numbOfShots <= 0) reloadAnimation();
         else gunLive = true;
     }
