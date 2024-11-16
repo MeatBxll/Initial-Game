@@ -16,7 +16,7 @@ public class LobbyPlayer : NetworkBehaviour
     public Toggle AbleToSwitchTeamsToggle;
     [SerializeField] private PrivateLobby privateLobby;
     public List<GameObject> lobbyPlayers;
-    [SerializeField] private GameObject playerPrefab;
+    public GameObject playerPrefab;
 
     private GameObject yourTeamsSpawnLocation;
     public bool AbleToSwitchTeams = true;
