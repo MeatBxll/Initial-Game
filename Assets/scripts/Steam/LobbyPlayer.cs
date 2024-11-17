@@ -120,4 +120,13 @@ public class LobbyPlayer : NetworkBehaviour
         myPlayer.GetComponentInChildren<Slider>().maxValue = g;
         myPlayer.GetComponentInChildren<Slider>().value = i;
     }
+
+    public void StartGameButton()
+    {
+        if(SceneManager.GetActiveScene().name == "menuScene")
+        {
+            privateLobby.LoadChooseCharacterMenu();
+        }
+
+    }
 }

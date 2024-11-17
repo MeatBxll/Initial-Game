@@ -15,6 +15,8 @@ public class PrivateLobby : MonoBehaviour
     [SerializeField] GameObject[] HostOnlyOptions;
     public List<GameObject> LobbyPlayers;
 
+    [SerializeField] private ChooseCharacter ChooseCharacterMenu;
+
     
     private void Start()
     {
@@ -88,12 +90,41 @@ public class PrivateLobby : MonoBehaviour
         foreach(GameObject g in HostOnlyOptions) if(g.name == "ChangeTeamsButton") g.GetComponent<Button>().interactable = true;
     }
 
-    public void StartGame()
+    public void LoadChooseCharacterMenu()
     {
         if(SceneManager.GetActiveScene().name == "menuScene")
         {
-            GameObject.Find("NetworkManager").GetComponent<NetworkManagerSteam>().LoadMap();
-            Destroy(gameObject);
+            // GameObject.Find("NetworkManager").GetComponent<NetworkManagerSteam>().LoadMap();
+            // Destroy(gameObject);
+
+            ChooseCharacterMenu.gameObject.SetActive(true);
+
+            int saveRedPos = 0;
+            int saveBluePos = 5;
+
+            foreach(TMP_Text m in TeamNames) m.fontStyle = FontStyles.Normal;
+
+
+            foreach(GameObject i in LobbyPlayers)
+            {
+                if(i.gameObject.GetComponent<LobbyPlayer>().IsRedTeam)
+                {
+                    ChooseCharacterMenu.CCTeamNames[saveRedPos].text = i.name;
+                    ChooseCharacterMenu.CCTeamNames[saveRedPos].fontStyle = FontStyles.Bold;
+                    saveRedPos++;
+                }
+                else
+                {
+                    ChooseCharacterMenu.CCTeamNames[saveBluePos].text = i.name;
+                    ChooseCharacterMenu.CCTeamNames[saveBluePos].fontStyle = FontStyles.Bold;
+                    saveBluePos++;
+                }
+            }
+
+            foreach(TMP_Text m in ChooseCharacterMenu.CCTeamNames) if(m.fontStyle != FontStyles.Bold) m.text = ". . .";
+
+            gameObject.SetActive(false);
+            
         }
     }
 }

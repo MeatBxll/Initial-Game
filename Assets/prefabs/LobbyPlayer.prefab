@@ -1926,7 +1926,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7703676613811846274
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8198,7 +8198,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3786133088835027517
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8299,6 +8299,7 @@ MonoBehaviour:
   - {fileID: 2817155983642432141}
   - {fileID: 265417085267142497}
   LobbyPlayers: []
+  ChooseCharacterMenu: {fileID: 961360222568548113}
 --- !u!1 &6213281684457528146
 GameObject:
   m_ObjectHideFlags: 0
