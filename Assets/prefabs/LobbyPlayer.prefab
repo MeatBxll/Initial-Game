@@ -2007,6 +2007,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 807725cedd23f4c4f8792d1930293603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CCTeamNames: []
 --- !u!1 &1128251842411025316
 GameObject:
   m_ObjectHideFlags: 0
@@ -8299,7 +8300,7 @@ MonoBehaviour:
   - {fileID: 2817155983642432141}
   - {fileID: 265417085267142497}
   LobbyPlayers: []
-  ChooseCharacterMenu: {fileID: 961360222568548113}
+  ChooseCharacterMenu: {fileID: 1922392290564042925}
 --- !u!1 &6213281684457528146
 GameObject:
   m_ObjectHideFlags: 0

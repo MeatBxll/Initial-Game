@@ -25,6 +25,8 @@ public class LobbyPlayer : NetworkBehaviour
     public float respawnTimer;
     private GameObject myPlayer;
 
+    [SerializeField] ChooseCharacter ChooseCharacterMenu;
+
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
@@ -126,7 +128,15 @@ public class LobbyPlayer : NetworkBehaviour
         if(SceneManager.GetActiveScene().name == "menuScene")
         {
             privateLobby.LoadChooseCharacterMenu();
+            // ChooseCharacterMenu.PrepareYourClass();
+            
         }
 
+    }
+
+    [Command]
+    void CmdChooseCharacterTimer()
+    {
+        
     }
 }
