@@ -14,7 +14,7 @@ public class projectile : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             if(redTeamBullet == collision.gameObject.GetComponent<Health>().IsRedTeam) return;
-            if(collision.gameObject.tag == "PlayerHead") collision.gameObject.GetComponent<Health>().TakeDmg(damage * headshotMultiplier);
+            collision.gameObject.GetComponent<Health>().TakeDmg(damage);
         } 
         Destroy(gameObject,0f);
     }
