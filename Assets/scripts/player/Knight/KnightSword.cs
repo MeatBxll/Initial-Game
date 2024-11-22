@@ -6,6 +6,7 @@ using Mirror.Examples.Basic;
 public class KnightSword : NetworkBehaviour
 {
     [SerializeField] private float damage;
+    
     private void OnTriggerEnter(Collider g) 
     {
         if(gameObject.GetComponentInParent<SlashMelee>().animator.GetBool("IsSwinging") == false) return;

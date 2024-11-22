@@ -821,6 +821,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1519281021769043688}
   - component: {fileID: 4897030033580004498}
+  - component: {fileID: 6964648730986667094}
+  - component: {fileID: 2663538263599053415}
   m_Layer: 0
   m_Name: animations
   m_TagString: Untagged
@@ -855,23 +857,46 @@ Animator:
   m_GameObject: {fileID: 2188259752536511570}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 8281b1ffff535e24bad2121a9301b38c, type: 3}
-  m_Controller: {fileID: 9100000, guid: b937ce20b0e2bd2429a8a56eadca39ea, type: 2}
+  m_Controller: {fileID: 9100000, guid: 45bfe89668bd96548ad485454fd49e0d, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
-    'mixamorig:LeftHandThumb2'\n\tTransform 'mixamorig:LeftHandIndex1'\n\tTransform
-    'mixamorig:Spine1'\n\tTransform 'mixamorig:RightArm'\n\tTransform 'mixamorig:LeftLeg'\n\tTransform
-    'mixamorig:LeftShoulder'\n\tTransform 'mixamorig:RightFoot'\n\tTransform 'mixamorig:Head'\n\tand
-    more ...\n\tFrom animation clip 'mixamo.com'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6964648730986667094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2188259752536511570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdb695065f7645b4da91c499626f72d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2663538263599053415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2188259752536511570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
+  clientAuthority: 1
+  animator: {fileID: 4897030033580004498}
 --- !u!1 &2327881771353885076
 GameObject:
   m_ObjectHideFlags: 0
@@ -2383,9 +2408,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8480455605133611207}
-  - component: {fileID: 5010871910607929673}
   - component: {fileID: 8739252082704364496}
   - component: {fileID: 2922189101125273723}
+  - component: {fileID: 5942719039621631927}
   - component: {fileID: 3873503646047394396}
   - component: {fileID: 7141864317649219525}
   - component: {fileID: 3589563282299814838}
@@ -2413,27 +2438,6 @@ Transform:
   - {fileID: 8100032016443997563}
   m_Father: {fileID: 3072336651512988089}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5010871910607929673
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9150032264615545469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9a9e1f6488db264e98ab111cf23f986, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  delayBetweenShots: 0.2
-  maxMagSize: 6
-  reloadTime: 2
-  gun1Projectile: {fileID: 3992201621267225016, guid: d7736ef06219e9341a11d7224d411e2c, type: 3}
-  projectileSpeed: 20
-  endOfBarrel: {fileID: 109571768944535505}
 --- !u!114 &8739252082704364496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2493,6 +2497,23 @@ MonoBehaviour:
     m_Bits: 8
   cam: {fileID: 1805358068310724846}
   animator: {fileID: 4897030033580004498}
+--- !u!114 &5942719039621631927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9150032264615545469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36ef0e8b6b1beea4e95e06449ecc75d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  animator: {fileID: 4897030033580004498}
+  SwingSpeed: 1
 --- !u!54 &3873503646047394396
 Rigidbody:
   m_ObjectHideFlags: 0
