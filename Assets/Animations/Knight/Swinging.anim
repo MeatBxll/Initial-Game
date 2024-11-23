@@ -45273,17 +45273,10 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0
-    functionName: 
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
   - time: 1.3666668
     functionName: EndSwing
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 6973667879998118185, guid: 0886a7b41f3ff634d94956fd4b5329e0, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
