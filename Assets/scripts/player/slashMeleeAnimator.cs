@@ -8,5 +8,6 @@ public class slashMeleeAnimator : NetworkBehaviour
     public void EndSwing()
     {
         gameObject.GetComponent<Animator>().SetBool("IsSwinging", false);
+        Debug.Log("stopSwing;");
     }
 }
