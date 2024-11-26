@@ -9,6 +9,7 @@ public class SlashMelee : NetworkBehaviour
     public Animator animator;
     [SerializeField] private float SwingSpeed;
     private AnimationClip SwingClip;
+    private bool NormalSwinging;
 
     private void Start() 
     {
@@ -25,11 +26,33 @@ public class SlashMelee : NetworkBehaviour
             if(animator.GetBool("IsSwinging") == true) return;
             animator.SetBool("IsSwinging", true);
             Invoke("EndSwing", SwingClip.length / SwingSpeed);
+            NormalSwinging = true;
         }
     }
 
     public void EndSwing()
     {
-        animator.SetBool("IsSwinging", false);
+        if(GameObject.FindGameObjectWithTag("playerUI").GetComponent<PlayerUI>().GamePaused) 
+        {
+            animator.SetBool("IsSwinging", false);
+            return;
+        }
+        
+        if (Input.GetMouseButton(0)) 
+        {
+            if(NormalSwinging)
+            {
+                animator.SetFloat("SwingSpeed", -SwingSpeed);
+                NormalSwinging = false;
+                Invoke("EndSwing", SwingClip.length / SwingSpeed);
+            }
+            else
+            {
+                animator.SetFloat("SwingSpeed", SwingSpeed);
+                NormalSwinging = true;
+                Invoke("EndSwing", SwingClip.length / SwingSpeed);
+            }
+        }
+        
     }
 }
