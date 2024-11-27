@@ -1,18 +1,24 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class KnightFireBall : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public bool IsRedTeam;
+    [SerializeField] float TravelTimeBeforeDespawn;
+    [SerializeField] float BaseDmg;
+    private void Start() 
     {
-        
+        Destroy(gameObject, TravelTimeBeforeDespawn);
+    }
+    private void OnTriggerEnter(Collider obj) 
+    {
+        if(obj.tag == "Player")
+        {
+            if(obj.GetComponent<Health>().IsRedTeam == IsRedTeam) return;
+            obj.GetComponent<Health>().TakeDmg(BaseDmg);
+        }
+        Destroy(gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }
