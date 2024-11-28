@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class KnightShield : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public bool IsRedTeam;
+    private void OnTriggerEnter(Collider obj) 
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if(obj.tag == "Bullet")
+        {
+            if(obj.GetComponent<Health>().IsRedTeam == IsRedTeam) return;
+        }
+        Destroy(gameObject);
     }
 }
