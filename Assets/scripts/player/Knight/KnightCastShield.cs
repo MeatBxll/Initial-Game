@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Mirror;
 
-public class KnightCastShield : MonoBehaviour
+public class KnightCastShield : NetworkBehaviour
 {
     public float ShieldMaxHealth;
     public float ShiledCurrentHealth;
@@ -25,7 +26,9 @@ public class KnightCastShield : MonoBehaviour
 
 
         //when shield is down shield health regenerates 
-        if(!ShieldUp)
+        if(!isOwned) return;
+        if(GameObject.FindGameObjectWithTag("playerUI").GetComponent<PlayerUI>().GamePaused == true) return;
+        if(Input.GetMouseButton(0))
         {
             float g = RegenerationCooldown;
         }
