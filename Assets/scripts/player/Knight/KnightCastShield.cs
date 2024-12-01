@@ -7,52 +7,74 @@ using Mirror;
 public class KnightCastShield : NetworkBehaviour
 {
     public float ShieldMaxHealth;
-    public float ShiledCurrentHealth;
+    public float ShieldCurrentHealth;
 
     [SerializeField] private float RegenerationCooldown;
-    [SerializeField] private float RegenAmount;
+    [SerializeField] private float BrokenShieldReginCooldown;
+    [SerializeField] private float ReginAmount;
     [SerializeField] private float ReginSpeed;
     private bool ShieldUp;
-    private bool CoolDownStarted;
+    private bool ShieldBroken;
+    [SerializeField] GameObject ShieldObject;
 
     void Start()
     {
-        ShiledCurrentHealth = ShieldMaxHealth;
+        ShieldCurrentHealth = ShieldMaxHealth;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        //when button is held shield is up when its not it goes down
-
-
-        //when shield is down shield health regenerates 
         if(!isOwned) return;
         if(GameObject.FindGameObjectWithTag("playerUI").GetComponent<PlayerUI>().GamePaused == true) return;
-        if(Input.GetMouseButton(0))
-        {
-            float g = RegenerationCooldown;
-        }
-        else
-        {
-            
-        }
+        if(!ShieldBroken)ShieldFunctionality();
     }
 
     public void TakeDamage(float dmg)
     {
-        ShiledCurrentHealth -= dmg;
+        ShieldCurrentHealth -= dmg;
+        if(ShieldCurrentHealth <= 0) 
+        {
+            ShieldBroken = true;
+            ShieldFunctionality();
+        }
     }
 
-    private void PutUpShield()
+    private void ShieldFunctionality()
     {
-        
+        if(Input.GetMouseButton(0))
+        {
+            if(!ShieldUp)
+            {
+                ShieldUp = true;
+                ShieldObject.SetActive(false);
+                CancelInvoke("RegenerateShieldHealth"); //cancels shield health regin when shield is up
+            }
+        }
+        else
+        {
+            if(ShieldUp) 
+            {
+                ShieldUp = false;
+                ShieldObject.SetActive(false);
+                Invoke("RegenerateShieldHealth", RegenerationCooldown); //starts the shield health recharge when shield isnt up 
+            }
+        }
+        if(ShieldBroken) 
+        {
+            ShieldUp = false;
+            ShieldObject.SetActive(false);
+            Invoke("RegenerateShieldHealth", BrokenShieldReginCooldown); //starts the shield health recharge when shield is broken 
+        }
     }
 
     private void RegenerateShieldHealth()
     {
         if(!ShieldUp)
         {
+            if(ShieldCurrentHealth == ShieldMaxHealth) return;
             Invoke("RegenerateShieldHealth", ReginSpeed);
+            if(ShieldCurrentHealth >= ShieldMaxHealth) ShieldCurrentHealth = ShieldMaxHealth;
+            else ShieldCurrentHealth += ReginAmount;
         }
     }
 }

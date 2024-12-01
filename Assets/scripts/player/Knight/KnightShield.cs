@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class KnightShield : MonoBehaviour
 {
-    public bool IsRedTeam;
-    private void OnTriggerEnter(Collider obj) 
+    private bool IsRedTeam;
+    [SerializeField] GameObject CharacterBody;
+
+    private void Start()
     {
-        if(obj.tag == "Bullet")
-        {
-            if(obj.GetComponent<Health>().IsRedTeam == IsRedTeam) return;
-        }
-        Destroy(gameObject);
+        IsRedTeam = CharacterBody.GetComponent<Health>().IsRedTeam;
+    }
+
+    private void TakeDamage(float dmg)
+    {
+        CharacterBody.GetComponent<KnightCastShield>().TakeDamage(dmg);
     }
 }
