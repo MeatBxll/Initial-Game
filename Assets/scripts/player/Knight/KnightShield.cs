@@ -14,6 +14,6 @@ public class KnightShield : MonoBehaviour
 
     private void TakeDamage(float dmg)
     {
-        CharacterBody.GetComponent<KnightCastShield>().TakeDamage(dmg);
+        CharacterBody.GetComponent<Knight>().TakeDamage(dmg);
     }
 }
