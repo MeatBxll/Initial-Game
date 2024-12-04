@@ -15,7 +15,7 @@ public class KnightFireBall : MonoBehaviour
         {
             if(obj.GetComponent<Health>().IsRedTeam == IsRedTeam) return;
             obj.GetComponent<Health>().TakeDmg(FireBallElements[0]);
-            obj.GetComponent<Health>().TakeDmgOverTime(FireBallElements[1], FireBallElements[2]);
+            obj.GetComponent<Health>().TakeDmgOverTime(FireBallElements[1], FireBallElements[2], PlayerThatSpawnedFireBall);
             PlayerThatSpawnedFireBall.GetComponent<Knight>().IncreasePassiveCount();
         }
         Destroy(gameObject);

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Mirror;
+using Steamworks;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -10,13 +11,15 @@ public class Health : MonoBehaviour
     [HideInInspector] public float playerHealth;
     [HideInInspector] public GameObject myLobbyPlayer;
     [HideInInspector] public bool IsRedTeam;
+    public float maxHealth;
 
-    //taking dmg over time
+
+     //taking dmg over time
     private List<float> OverTimeDmgs;
     private List<int> OverTimeDurrations;
+    private List<GameObject> DmgSources;
     private bool IsTakingDmgOverTime;
-    
-    public float maxHealth;
+    [SerializeField] private float TimeBetweenDmgTicks;
     void Start()
     {
         playerHealth = maxHealth;
@@ -38,19 +41,64 @@ public class Health : MonoBehaviour
         }
     }
 
-    public void TakeDmgOverTime(float dmgPerTick, float numberOfTicks)
+    public void TakeDmgOverTime(float dmgPerTick, float numberOfTicks, GameObject dmgSource)
     {
-        //need to find a way to burn the player over a certain amount of time while passing in these variables
+        //converts number of dmg ticks to a int
         numberOfTicks = Mathf.Round(numberOfTicks * 10.0f) * 0.1f;
+        int tickNumb = (int) numberOfTicks;
+
+        //checks to see if youre already taking dmg over time from that source and if so just replaces the durration and dmg of that
+        for (int i = 0; i < DmgSources.Count; i++)
+        {
+            if(DmgSources[i] == dmgSource)
+            {
+                OverTimeDmgs[i] = dmgPerTick;
+                OverTimeDurrations[i] = tickNumb;
+                return;
+            }
+        }
+        DmgSources.Add(dmgSource);
+        OverTimeDmgs.Add(dmgPerTick);
+        OverTimeDurrations.Add(tickNumb);
+        if(!IsTakingDmgOverTime)
+        {
+            IsTakingDmgOverTime = true;
+            DealDmgOverTime();
+        }
         
 
-        
+
     }
 
     private void DealDmgOverTime()
     {
+        if(IsTakingDmgOverTime == false) return;
+        if(DmgSources.Count < OverTimeDurrations.Count) Debug.Log("something went wrong");
+        for(int i = 0; i < DmgSources.Count; i++)
+        {
+            if(OverTimeDurrations[i] !<= 0)
+            {
+                OverTimeDurrations[i]--;
+                TakeDmg(OverTimeDmgs[i]);
+            }
+            else
+            {
+                DmgSources.Remove(DmgSources[i]);
+                OverTimeDmgs.Remove(OverTimeDmgs[i]);
+                OverTimeDurrations.Remove(OverTimeDurrations[i]);
+            }
 
+        }
 
+        if(DmgSources.Count <= 0)
+        {
+            IsTakingDmgOverTime = false;
+            OverTimeDmgs.Clear();
+            OverTimeDurrations.Clear();
+        }
+
+        Invoke("DealDmgOverTime", TimeBetweenDmgTicks);
+        
         if(playerHealth <= 0) myLobbyPlayer.GetComponent<LobbyPlayer>().KillPlayer();
         else 
         {
