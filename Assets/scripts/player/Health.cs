@@ -10,6 +10,11 @@ public class Health : MonoBehaviour
     [HideInInspector] public float playerHealth;
     [HideInInspector] public GameObject myLobbyPlayer;
     [HideInInspector] public bool IsRedTeam;
+
+    //taking dmg over time
+    private List<float> OverTimeDmgs;
+    private List<int> OverTimeDurrations;
+    private bool IsTakingDmgOverTime;
     
     public float maxHealth;
     void Start()
@@ -28,22 +33,30 @@ public class Health : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("playerUI").GetComponent<PlayerUI>().PlayerHealthVisuals(playerHealth, maxHealth);
             myLobbyPlayer.GetComponent<LobbyPlayer>().PlayerHealthBar(playerHealth, maxHealth);
+            CancelInvoke("DealDmgOverTime");
 
         }
     }
 
-    public void IsBurning(float burnDmg, float burnTicks)
+    public void TakeDmgOverTime(float dmgPerTick, float numberOfTicks)
     {
         //need to find a way to burn the player over a certain amount of time while passing in these variables
-        burnTicks = Mathf.Round(burnTicks * 10.0f) * 0.1f;
+        numberOfTicks = Mathf.Round(numberOfTicks * 10.0f) * 0.1f;
+        
 
-        playerHealth -= burnDmg;
+        
+    }
+
+    private void DealDmgOverTime()
+    {
+
 
         if(playerHealth <= 0) myLobbyPlayer.GetComponent<LobbyPlayer>().KillPlayer();
         else 
         {
             GameObject.FindGameObjectWithTag("playerUI").GetComponent<PlayerUI>().PlayerHealthVisuals(playerHealth, maxHealth);
             myLobbyPlayer.GetComponent<LobbyPlayer>().PlayerHealthBar(playerHealth, maxHealth);
+            CancelInvoke("DealDmgOverTime");
 
         }
     }
