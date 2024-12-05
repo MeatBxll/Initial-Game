@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 
 public class Knight : NetworkBehaviour
 {
     //shield stuff
     public float ShieldMaxHealth;
-    public float ShieldCurrentHealth;
+    [HideInInspector] public float ShieldCurrentHealth;
     [SerializeField] private float RegenerationCooldown;
     [SerializeField] private float BrokenShieldReginCooldown;
     [SerializeField] private float ReginAmount;
@@ -25,6 +27,14 @@ public class Knight : NetworkBehaviour
     private bool fireballOnCooldown;
     private float[] FireBallElements; //packages all the important fireball elements to send to the fireball
 
+    //fire smoke stuff
+    [SerializeField] private GameObject smokeSpawnObject;
+    [SerializeField] private float smokeCooldown;
+    [SerializeField] private float smokeSpawnObjectSpeed;
+    [SerializeField] private float smokeDurration;
+    private float[] smokeElements;
+    private bool smokeOnCooldown;
+
     //Passive stuff
     [SerializeField] private int MaxPassiveStacks;
     [SerializeField] private int PassiveBurnDmg;
@@ -40,8 +50,14 @@ public class Knight : NetworkBehaviour
         FireBallElements[1] = PassiveBurnDmg;
         FireBallElements[2] = PassiveBurnDurration;
 
+        smokeElements = new float[3];
+        smokeElements[0] = smokeDurration;
+        smokeElements[1] = PassiveBurnDmg;
+        smokeElements[2] = PassiveBurnDurration;
+
         ShieldCurrentHealth = ShieldMaxHealth;
         fireballOnCooldown = false;
+        smokeOnCooldown = false;
         CurrentPassiveCount = 0;
     }
 
@@ -117,7 +133,9 @@ public class Knight : NetworkBehaviour
     [Command]
     void CmdCastFireBall(bool team)
     {
-        GameObject fireBallClone = Instantiate(FireBall, FireBallSpawnLocation.position, FireBallSpawnLocation.rotation);
+        // used to fix the rotation if it is off
+        Quaternion FixSpawnLocation = Quaternion.Euler(FireBallSpawnLocation.rotation.x, FireBallSpawnLocation.rotation.y, FireBallSpawnLocation.rotation.z + 90);
+        GameObject fireBallClone = Instantiate(FireBall, FireBallSpawnLocation.position, FixSpawnLocation);
         fireBallClone.GetComponent<Rigidbody>().velocity = FireBallSpawnLocation.transform.forward * FireBallSpeed; 
         fireBallClone.GetComponent<KnightFireBall>().IsRedTeam = team;
         fireBallClone.GetComponent<KnightFireBall>().PlayerThatSpawnedFireBall = gameObject;
@@ -135,4 +153,28 @@ public class Knight : NetworkBehaviour
         CurrentPassiveCount++;
     }
     
+    //fire smoke stuff
+    private void CastSmoke()
+    {
+        if(!smokeOnCooldown)
+        {
+            smokeOnCooldown = true;
+            Invoke("CastSmoke", smokeCooldown);
+            CmdCastSmoke(gameObject.GetComponent<Health>().IsRedTeam);
+        }
+        else smokeOnCooldown = false;
+    }
+    void CmdCastSmoke(bool team)
+    {
+        // used to fix the rotation if it is off
+        Quaternion FixSpawnLocation = Quaternion.Euler(FireBallSpawnLocation.rotation.x, FireBallSpawnLocation.rotation.y, FireBallSpawnLocation.rotation.z);
+        GameObject smokeSpawnerClone = Instantiate(smokeSpawnObject, FireBallSpawnLocation.position, FixSpawnLocation);
+        smokeSpawnerClone.GetComponent<Rigidbody>().velocity = FireBallSpawnLocation.transform.forward * smokeSpawnObjectSpeed; 
+        smokeSpawnerClone.GetComponent<KnightSmoke>().IsRedTeam = team;
+        smokeSpawnerClone.GetComponent<KnightSmoke>().PlayerThatSpawnedFireBall = gameObject;
+        smokeSpawnerClone.GetComponent<KnightSmoke>().smokeElements = smokeElements;
+
+        NetworkServer.Spawn(smokeSpawnerClone);
+        Destroy(smokeSpawnerClone, 10);
+    }
 }

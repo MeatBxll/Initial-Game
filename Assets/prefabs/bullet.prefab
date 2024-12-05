@@ -59,6 +59,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eac2458028c64f4c942e090e3d8d4f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  redTeamBullet: 0
+  headshotMultiplier: 0
   damage: 100
 --- !u!54 &-6205607043170726260
 Rigidbody:
@@ -135,7 +137,7 @@ MonoBehaviour:
   sceneId: 0
   _assetId: 814636222
   serverOnly: 0
-  visibility: 0
+  visibility: 2
   hasSpawned: 0
 --- !u!114 &7652786049287987313
 MonoBehaviour:

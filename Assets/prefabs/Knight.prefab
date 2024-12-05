@@ -2401,6 +2401,7 @@ GameObject:
   - component: {fileID: 3873503646047394396}
   - component: {fileID: 7141864317649219525}
   - component: {fileID: 3589563282299814838}
+  - component: {fileID: 5223342897483799347}
   m_Layer: 0
   m_Name: body
   m_TagString: Player
@@ -2567,6 +2568,37 @@ MonoBehaviour:
   myLobbyPlayer: {fileID: 0}
   IsRedTeam: 0
   maxHealth: 400
+  TimeBetweenDmgTicks: 0
+--- !u!114 &5223342897483799347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9150032264615545469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67e76e60b8de572449e81597fa055b69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  ShieldMaxHealth: 1000
+  ShieldCurrentHealth: 0
+  RegenerationCooldown: 1
+  BrokenShieldReginCooldown: 5
+  ReginAmount: 20
+  ReginSpeed: 0.25
+  ShieldObject: {fileID: 0}
+  FireBallSpawnLocation: {fileID: 109571768944535505}
+  FireBall: {fileID: 8844061320249820990, guid: e865bb69edd602c4693598f8b535ff22, type: 3}
+  fireballCooldown: 5
+  FireBallSpeed: 10
+  FireBallBaseDmg: 50
+  MaxPassiveStacks: 5
+  PassiveBurnDmg: 2
+  PassiveBurnDurration: 5
 --- !u!1001 &1372498912992086143
 PrefabInstance:
   m_ObjectHideFlags: 0
