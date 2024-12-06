@@ -148,9 +148,20 @@ public class Knight : NetworkBehaviour
     //Passive Stuff
     public void IncreasePassiveCount()
     {
+        if(!isOwned) return;
         if(CurrentPassiveCount == MaxPassiveStacks) return;
         if(CurrentPassiveCount > MaxPassiveStacks) CurrentPassiveCount = MaxPassiveStacks;
         CurrentPassiveCount++;
+    }
+
+    private void DepreciatePassive()
+    {
+
+    }
+
+    public void UpdateStats()
+    {
+        
     }
     
     //fire smoke stuff
@@ -164,6 +175,7 @@ public class Knight : NetworkBehaviour
         }
         else smokeOnCooldown = false;
     }
+    [Command]
     void CmdCastSmoke(bool team)
     {
         // used to fix the rotation if it is off
@@ -175,6 +187,5 @@ public class Knight : NetworkBehaviour
         smokeSpawnerClone.GetComponent<KnightSmoke>().smokeElements = smokeElements;
 
         NetworkServer.Spawn(smokeSpawnerClone);
-        Destroy(smokeSpawnerClone, 10);
     }
 }

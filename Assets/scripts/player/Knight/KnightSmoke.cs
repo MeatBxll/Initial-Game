@@ -10,23 +10,31 @@ public class KnightSmoke : NetworkBehaviour
     [HideInInspector] public GameObject PlayerThatSpawnedFireBall;
     [HideInInspector] public float[] smokeElements;
     [SerializeField] private GameObject smokeObj;
+    private bool onlyOnce;
+    private void Start()
+    {
+        onlyOnce = false;
+    }
     private void OnCollisionEnter(Collision obj) 
     {
+        if(onlyOnce) return;
         if(obj.gameObject.tag != "Player")
         {
+            onlyOnce = true;
             CmdSpawnSmoke();
         }
     }
     [Command]
     void CmdSpawnSmoke()
     {
-        GameObject smokeSpawnerClone = Instantiate(smokeObj, gameObject.transform.position, gameObject.transform.rotation);
-        smokeSpawnerClone.GetComponent<KnightSmoke>().IsRedTeam = IsRedTeam;
-        smokeSpawnerClone.GetComponent<KnightSmoke>().PlayerThatSpawnedFireBall = PlayerThatSpawnedFireBall;
-        smokeSpawnerClone.GetComponent<KnightSmoke>().smokeElements = smokeElements;
+        GameObject smokeClone = Instantiate(smokeObj, gameObject.transform.position, gameObject.transform.rotation);
+        smokeClone.GetComponent<KnightSmoke>().IsRedTeam = IsRedTeam;
+        smokeClone.GetComponent<KnightSmoke>().PlayerThatSpawnedFireBall = PlayerThatSpawnedFireBall;
+        smokeClone.GetComponent<KnightSmoke>().smokeElements = smokeElements;
 
-        NetworkServer.Spawn(smokeSpawnerClone);
-        Destroy(smokeSpawnerClone, smokeElements[0]);
+        NetworkServer.Spawn(smokeClone);
+        Destroy(smokeClone, smokeElements[0]);
+        Destroy(gameObject, smokeElements[0]+ 0.1f);
     }
 
     private void OnTriggerEnter(Collider obj) 
