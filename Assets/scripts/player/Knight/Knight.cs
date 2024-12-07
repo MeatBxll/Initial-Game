@@ -65,7 +65,7 @@ public class Knight : NetworkBehaviour
     {
         if(!isOwned) return;
         if(GameObject.FindGameObjectWithTag("playerUI").GetComponent<PlayerUI>().GamePaused == true) return;
-        if(!ShieldBroken)ShieldFunctionality(); // cast shield stuff
+        //if(!ShieldBroken)ShieldFunctionality(); // cast shield stuff
         if(!fireballOnCooldown && Input.GetKeyDown(KeyCode.Q)) CastFireBall();
     }
 

@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using Unity.VisualScripting;
+using Mirror.Examples.Basic;
 
 public class SlashMelee : NetworkBehaviour
 {
-    public Animator animator;
+    [HideInInspector] public Animator animator;
     [SerializeField] private float SwingSpeed;
     private AnimationClip SwingClip;
     private bool NormalSwinging;
 
     private void Start() 
     {
+        animator = gameObject.GetComponent<player>().animator;
         animator.SetFloat("SwingSpeed", SwingSpeed);
         AnimationClip[] AnimationClips = animator.runtimeAnimatorController.animationClips;
         foreach(AnimationClip c in AnimationClips) if(c.name == "KnightSwing") SwingClip = c;
@@ -52,6 +54,10 @@ public class SlashMelee : NetworkBehaviour
                 NormalSwinging = true;
                 Invoke("EndSwing", SwingClip.length / SwingSpeed);
             }
+        }
+        else
+        {
+            animator.SetBool("IsSwinging", false);
         }
         
     }
