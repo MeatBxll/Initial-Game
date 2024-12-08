@@ -22,7 +22,7 @@ public class cameraController : NetworkBehaviour
             cam.GetComponent<CinemachineHardLockToTarget>().enabled = true;
             cam.GetComponent<CinemachineCamera>().Priority = 1;
 
-            playerMesh.SetActive(false);
+            // playerMesh.SetActive(false);
         }
         else
         {
