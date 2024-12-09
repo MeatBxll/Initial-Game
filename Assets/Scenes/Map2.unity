@@ -6927,10 +6927,11 @@ MonoBehaviour:
   - {fileID: 967087335}
   - {fileID: 1811558884}
   NetworkManager: {fileID: 0}
-  currentBulletCount: 0
-  maxBulletCount: 0
   currentBulletCountText: {fileID: 82676820}
   maxBulletCountText: {fileID: 1718943529}
+  maxHealth: {fileID: 0}
+  currentHealth: {fileID: 0}
+  healthSlider: {fileID: 0}
   PlayerSensitivity: 0
 --- !u!1 &755979638
 GameObject:
@@ -7403,6 +7404,75 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &809030450
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2410737573769778986, guid: 0886a7b41f3ff634d94956fd4b5329e0, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2410737573769778986, guid: 0886a7b41f3ff634d94956fd4b5329e0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3072336651512988089, guid: 0886a7b41f3ff634d94956fd4b5329e0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -58.793842
+      objectReference: {fileID: 0}
+    - target: {fileID: 3072336651512988089, guid: 0886a7b41f3ff634d94956fd4b5329e0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3072336651512988089, guid: 0886a7b41f3ff634d94956fd4b5329e0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 23.418362
+      objectReference: {fileID: 0}
+    - target: {fileID: 3072336651512988089, guid: 0886a7b41f3ff634d94956fd4b5329e0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3072336651512988089, guid: 0886a7b41f3ff634d94956fd4b5329e0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3072336651512988089, guid: 0886a7b41f3ff634d94956fd4b5329e0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3072336651512988089, guid: 0886a7b41f3ff634d94956fd4b5329e0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3072336651512988089, guid: 0886a7b41f3ff634d94956fd4b5329e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3072336651512988089, guid: 0886a7b41f3ff634d94956fd4b5329e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3072336651512988089, guid: 0886a7b41f3ff634d94956fd4b5329e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6973667879998118185, guid: 0886a7b41f3ff634d94956fd4b5329e0, type: 3}
+      propertyPath: m_Name
+      value: Knight (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7230059153501056396, guid: 0886a7b41f3ff634d94956fd4b5329e0, type: 3}
+      propertyPath: sceneId
+      value: 4083467508
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0886a7b41f3ff634d94956fd4b5329e0, type: 3}
 --- !u!1 &823857420
 GameObject:
   m_ObjectHideFlags: 0
@@ -18134,3 +18204,4 @@ SceneRoots:
   - {fileID: 1592372363}
   - {fileID: 793873229}
   - {fileID: 761008763}
+  - {fileID: 809030450}

@@ -8,7 +8,7 @@ public class cameraController : NetworkBehaviour
 {
     
     [SerializeField] private GameObject cam;
-    [SerializeField] private GameObject playerMesh;
+    [SerializeField] private GameObject[] AllMeshObjs;
     public override void OnStartClient()
     {
         //detects if is local player then enables all camera functionality for that player
@@ -22,7 +22,7 @@ public class cameraController : NetworkBehaviour
             cam.GetComponent<CinemachineHardLockToTarget>().enabled = true;
             cam.GetComponent<CinemachineCamera>().Priority = 1;
 
-            // playerMesh.SetActive(false);
+            // foreach(GameObject g in AllMeshObjs) g.SetActive(false);
         }
         else
         {
