@@ -65,8 +65,9 @@ public class Knight : NetworkBehaviour
     {
         if(!isOwned) return;
         if(GameObject.FindGameObjectWithTag("playerUI").GetComponent<PlayerUI>().GamePaused == true) return;
-        //if(!ShieldBroken)ShieldFunctionality(); // cast shield stuff
+        if(!ShieldBroken)ShieldFunctionality(); // cast shield stuff
         if(!fireballOnCooldown && Input.GetKeyDown(KeyCode.Q)) CastFireBall();
+        if(!smokeOnCooldown && Input.GetKeyDown(KeyCode.E)) CastSmoke();
     }
 
     public void TakeDamage(float dmg) //shield Take dmg
@@ -81,12 +82,14 @@ public class Knight : NetworkBehaviour
 
     private void ShieldFunctionality()
     {
-        if(Input.GetMouseButton(0))
+        gameObject.GetComponent<SlashMelee>().IsShielding = ShieldUp;
+        Debug.Log(ShieldUp);
+        if(Input.GetMouseButton(1))
         {
             if(!ShieldUp)
             {
                 ShieldUp = true;
-                ShieldObject.SetActive(false);
+                // ShieldObject.SetActive(false);
                 CancelInvoke("RegenerateShieldHealth"); //cancels shield health regin when shield is up
             }
         }
@@ -95,7 +98,7 @@ public class Knight : NetworkBehaviour
             if(ShieldUp) 
             {
                 ShieldUp = false;
-                ShieldObject.SetActive(false);
+                // ShieldObject.SetActive(false);
                 Invoke("RegenerateShieldHealth", RegenerationCooldown); //starts the shield health recharge when shield isnt up 
             }
         }

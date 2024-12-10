@@ -13,6 +13,7 @@ public class KnightSmoke : NetworkBehaviour
     private bool onlyOnce;
     private void Start()
     {
+        
         onlyOnce = false;
     }
     private void OnCollisionEnter(Collision obj) 

@@ -11,6 +11,7 @@ public class SlashMelee : NetworkBehaviour
     [SerializeField] private float SwingSpeed;
     private AnimationClip SwingClip;
     private bool NormalSwinging;
+    [HideInInspector] public bool IsShielding;
 
     private void Start() 
     {
@@ -23,13 +24,15 @@ public class SlashMelee : NetworkBehaviour
     {
         if(!isOwned) return;
         if(GameObject.FindGameObjectWithTag("playerUI").GetComponent<PlayerUI>().GamePaused) return;
-        if (Input.GetMouseButton(0)) 
+        if (Input.GetMouseButton(0) && !IsShielding) 
         {
             if(animator.GetBool("IsSwinging") == true) return;
             animator.SetBool("IsSwinging", true);
             Invoke("EndSwing", .2f);
             // NormalSwinging = true;
         }
+        
+        if(IsShielding) animator.SetBool("IsSwinging", false);
     }
 
     void EndSwing()
