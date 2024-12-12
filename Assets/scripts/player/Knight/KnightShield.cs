@@ -5,7 +5,7 @@ using UnityEngine;
 public class KnightShield : MonoBehaviour
 {
     private bool IsRedTeam;
-    [SerializeField] GameObject CharacterBody;
+    public GameObject CharacterBody;
 
     private void Start()
     {

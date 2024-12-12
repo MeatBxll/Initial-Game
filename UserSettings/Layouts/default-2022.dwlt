@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 989
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Game
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 40
+  controlID: 106
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 41
+  controlID: 107
   draggingID: 0
 --- !u!114 &7
 MonoBehaviour:
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 42
+  controlID: 53
   draggingID: 0
 --- !u!114 &8
 MonoBehaviour:
@@ -300,8 +300,8 @@ MonoBehaviour:
     y: 0
     width: 505
     height: 939
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 21}
   m_Panes:
   - {fileID: 21}
@@ -380,7 +380,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 14fbffff
+      m_ExpandedIDs: d686ffffe086ffff9688ffff3a98ffff4498fffffa99ffff14fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -788,7 +788,7 @@ MonoBehaviour:
   m_Position:
     m_Target: {x: -37.006485, y: 2.4511786, z: 35.199944}
     speed: 2
-    m_Value: {x: -8.353337, y: 11.362883, z: 3.7876291}
+    m_Value: {x: -37.006485, y: 2.4511786, z: 35.199944}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -836,11 +836,11 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: 0.1120266, y: -0.7847989, z: 0.14875925, w: 0.59118646}
     speed: 2
-    m_Value: {x: -0.07916534, y: -0.8083268, z: 0.5725802, w: -0.11176978}
+    m_Value: {x: 0.112021565, y: -0.78476363, z: 0.14875256, w: 0.5911599}
   m_Size:
     m_Target: 0.8580541
     speed: 2
-    m_Value: 2.9144773
+    m_Value: 0.8580541
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1022,7 +1022,7 @@ MonoBehaviour:
     x: 393
     y: 73
     width: 1020
-    height: 663
+    height: 664
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1134,7 +1134,7 @@ MonoBehaviour:
   m_MiniTool: 0
   m_LockTracker:
     m_IsLocked: 0
-  m_CurrentEditor: 0
+  m_CurrentEditor: 1
   m_LayerEditor:
     m_SelectedLayerIndex: 1
 --- !u!114 &19
@@ -1182,7 +1182,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/scripts/player/Knight
+    - Assets/prefabs
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -1190,16 +1190,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/scripts/player/Knight
+  - Assets/prefabs
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\MeatB\My project (1)
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 91}
-    m_SelectedIDs: fa7c0000
-    m_LastClickedID: 31994
-    m_ExpandedIDs: 00000000ac7c0000ae7c0000b67c0000b87c0000c47c0000fc7c0000ffffff7f
+    scrollPos: {x: 0, y: 31}
+    m_SelectedIDs: dc7c0000
+    m_LastClickedID: 31964
+    m_ExpandedIDs: 00000000c87c0000ca7c0000d27c0000e07c0000187d0000ffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1227,7 +1227,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000ac7c0000ae7c0000
+    m_ExpandedIDs: 00000000c87c0000ca7c0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1319,7 +1319,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 244008
+  m_LastSelectedObjectID: 168348
 --- !u!114 &21
 MonoBehaviour:
   m_ObjectHideFlags: 52

@@ -16,7 +16,7 @@ public class Knight : NetworkBehaviour
     [SerializeField] private float ReginSpeed;
     private bool ShieldUp;
     private bool ShieldBroken;
-    [SerializeField] GameObject ShieldObject;
+    [SerializeField] private GameObject ShieldObject;
 
     // fireball stuff
     [SerializeField] private Transform FireBallSpawnLocation;
@@ -40,6 +40,8 @@ public class Knight : NetworkBehaviour
     [SerializeField] private int PassiveBurnDmg;
     [SerializeField] private int PassiveBurnDurration;
     private int CurrentPassiveCount;
+
+    private Animator animator;
     
 
     void Start()
@@ -59,6 +61,11 @@ public class Knight : NetworkBehaviour
         fireballOnCooldown = false;
         smokeOnCooldown = false;
         CurrentPassiveCount = 0;
+
+        animator = gameObject.GetComponent<player>().animator;
+        animator.SetBool("Blocking", false);
+        ShieldObject.GetComponent<KnightShield>().CharacterBody = gameObject;
+        CmdSetShield(false);
     }
 
     void FixedUpdate()
@@ -89,8 +96,9 @@ public class Knight : NetworkBehaviour
             if(!ShieldUp)
             {
                 ShieldUp = true;
-                // ShieldObject.SetActive(false);
+                CmdSetShield(true);
                 CancelInvoke("RegenerateShieldHealth"); //cancels shield health regin when shield is up
+                animator.SetBool("Blocking", true);
             }
         }
         else
@@ -98,8 +106,9 @@ public class Knight : NetworkBehaviour
             if(ShieldUp) 
             {
                 ShieldUp = false;
-                // ShieldObject.SetActive(false);
+                CmdSetShield(false);
                 Invoke("RegenerateShieldHealth", RegenerationCooldown); //starts the shield health recharge when shield isnt up 
+                animator.SetBool("Blocking", false);
             }
         }
         if(ShieldBroken) 
@@ -108,6 +117,12 @@ public class Knight : NetworkBehaviour
             ShieldObject.SetActive(false);
             Invoke("RegenerateShieldHealth", BrokenShieldReginCooldown); //starts the shield health recharge when shield is broken 
         }
+    }
+    
+    [Command]
+    void CmdSetShield(bool a)
+    {
+        ShieldObject.SetActive(a);
     }
 
     private void RegenerateShieldHealth()
