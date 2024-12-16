@@ -17,8 +17,6 @@ public class SlashMelee : NetworkBehaviour
     {
         animator = gameObject.GetComponent<player>().animator;
         animator.SetFloat("SwingSpeed", SwingSpeed);
-        // AnimationClip[] AnimationClips = animator.runtimeAnimatorController.animationClips;
-        // foreach(AnimationClip c in AnimationClips) if(c.name == "KnightSwing") SwingClip = c;
     }
     void FixedUpdate()
     {
@@ -28,40 +26,8 @@ public class SlashMelee : NetworkBehaviour
         {
             if(animator.GetBool("IsSwinging") == true) return;
             animator.SetBool("IsSwinging", true);
-            Invoke("EndSwing", .2f);
-            // NormalSwinging = true;
         }
         
         if(IsShielding) animator.SetBool("IsSwinging", false);
-    }
-
-    void EndSwing()
-    {
-        // if(GameObject.FindGameObjectWithTag("playerUI").GetComponent<PlayerUI>().GamePaused) 
-        // {
-        //     animator.SetBool("IsSwinging", false);
-        //     return;
-        // }
-        
-        // if (Input.GetMouseButton(0)) 
-        // {
-        //     if(NormalSwinging)
-        //     {
-        //         animator.SetFloat("SwingSpeed", -SwingSpeed);
-        //         NormalSwinging = false;
-        //         Invoke("EndSwing", SwingClip.length / SwingSpeed);
-        //     }
-        //     else
-        //     {
-        //         animator.SetFloat("SwingSpeed", SwingSpeed);
-        //         NormalSwinging = true;
-        //         Invoke("EndSwing", SwingClip.length / SwingSpeed);
-        //     }
-        // }
-        // else
-        {
-            animator.SetBool("IsSwinging", false);
-        }
-        
     }
 }
