@@ -1484,7 +1484,6 @@ GameObject:
   - component: {fileID: 8480455605133611207}
   - component: {fileID: 8739252082704364496}
   - component: {fileID: 2922189101125273723}
-  - component: {fileID: 5942719039621631927}
   - component: {fileID: 3873503646047394396}
   - component: {fileID: 7141864317649219525}
   - component: {fileID: 3589563282299814838}
@@ -1572,24 +1571,6 @@ MonoBehaviour:
     m_Bits: 8
   cam: {fileID: 1805358068310724846}
   animator: {fileID: 6388617595885079192}
---- !u!114 &5942719039621631927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9150032264615545469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36ef0e8b6b1beea4e95e06449ecc75d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  animator: {fileID: 0}
-  SwingSpeed: 1
-  IsShielding: 0
 --- !u!54 &3873503646047394396
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1672,6 +1653,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  SwingSpeed: 1
   ShieldMaxHealth: 1000
   ShieldCurrentHealth: 0
   RegenerationCooldown: 1
@@ -1691,6 +1673,7 @@ MonoBehaviour:
   MaxPassiveStacks: 5
   PassiveBurnDmg: 2
   PassiveBurnDurration: 5
+  animator: {fileID: 0}
 --- !u!1001 &703256927463470857
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1851,6 +1834,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66f9de43c64e45244add12522f21d7df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  knight: {fileID: 0}
 --- !u!1 &528494011026245325 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1051571768989249988, guid: 70c1038ae01e49d40aa0c307446fb3f0, type: 3}

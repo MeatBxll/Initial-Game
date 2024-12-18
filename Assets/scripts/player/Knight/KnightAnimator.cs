@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class KnightAnimator : MonoBehaviour
 {
+    [HideInInspector] public Knight knight;
 
     public void StopSwingAnim()
     {

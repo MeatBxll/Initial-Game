@@ -9,7 +9,7 @@ public class KnightSword : NetworkBehaviour
     
     private void OnTriggerEnter(Collider g) 
     {
-        if(gameObject.GetComponentInParent<SlashMelee>().animator.GetBool("IsSwinging") == false) return;
+        if(gameObject.GetComponentInParent<Knight>().animator.GetBool("IsSwinging") == false) return;
         if (g.gameObject.tag == "Player")
         {
             if(gameObject.GetComponentInParent<Health>().IsRedTeam = g.GetComponent<Health>().IsRedTeam) return;

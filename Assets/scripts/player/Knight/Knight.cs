@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 
 public class Knight : NetworkBehaviour
 {
+    [SerializeField] private float SwingSpeed;
     //shield stuff
     public float ShieldMaxHealth;
     [HideInInspector] public float ShieldCurrentHealth;
@@ -41,7 +42,7 @@ public class Knight : NetworkBehaviour
     [SerializeField] private int PassiveBurnDurration;
     private int CurrentPassiveCount;
 
-    private Animator animator;
+    [HideInInspector] public Animator animator;
     
 
     void Start()
@@ -63,9 +64,12 @@ public class Knight : NetworkBehaviour
         CurrentPassiveCount = 0;
 
         animator = gameObject.GetComponent<player>().animator;
+        animator.gameObject.GetComponent<KnightAnimator>().knight = gameObject.GetComponent<Knight>();
         animator.SetBool("Blocking", false);
         ShieldObject.GetComponent<KnightShield>().CharacterBody = gameObject;
         CmdSetShield(false);
+
+        animator.SetFloat("SwingSpeed", SwingSpeed);
     }
 
     void FixedUpdate()
@@ -75,6 +79,13 @@ public class Knight : NetworkBehaviour
         if(!ShieldBroken)ShieldFunctionality(); // cast shield stuff
         if(!fireballOnCooldown && Input.GetKeyDown(KeyCode.Q)) CastFireBall();
         if(!smokeOnCooldown && Input.GetKeyDown(KeyCode.E)) CastSmoke();
+        if (Input.GetMouseButton(0) && !ShieldUp) SlashMelee();
+        if(ShieldUp) animator.SetBool("IsSwinging", false);
+    }
+    private void SlashMelee()
+    {
+        if(animator.GetBool("IsSwinging") == true) return;
+        animator.SetBool("IsSwinging", true);
     }
 
     public void TakeDamage(float dmg) //shield Take dmg
@@ -89,7 +100,6 @@ public class Knight : NetworkBehaviour
 
     private void ShieldFunctionality()
     {
-        gameObject.GetComponent<SlashMelee>().IsShielding = ShieldUp;
         Debug.Log(ShieldUp);
         if(Input.GetMouseButton(1))
         {
