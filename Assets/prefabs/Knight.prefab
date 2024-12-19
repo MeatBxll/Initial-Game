@@ -1653,6 +1653,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  IsSwinging: 0
   SwingSpeed: 1
   ShieldMaxHealth: 1000
   ShieldCurrentHealth: 0
@@ -1660,6 +1661,7 @@ MonoBehaviour:
   BrokenShieldReginCooldown: 5
   ReginAmount: 20
   ReginSpeed: 0.25
+  ShieldUp: 0
   ShieldObject: {fileID: 5234782107611538347}
   FireBallSpawnLocation: {fileID: 109571768944535505}
   FireBall: {fileID: 8844061320249820990, guid: e865bb69edd602c4693598f8b535ff22, type: 3}

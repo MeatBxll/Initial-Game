@@ -7,7 +7,8 @@ using Unity.VisualScripting;
 
 public class Knight : NetworkBehaviour
 {
-    [SerializeField] private float SwingSpeed;
+    //slash melee stuff
+    public float SwingSpeed;
     //shield stuff
     public float ShieldMaxHealth;
     [HideInInspector] public float ShieldCurrentHealth;
@@ -15,7 +16,7 @@ public class Knight : NetworkBehaviour
     [SerializeField] private float BrokenShieldReginCooldown;
     [SerializeField] private float ReginAmount;
     [SerializeField] private float ReginSpeed;
-    private bool ShieldUp;
+    [HideInInspector] public bool ShieldUp;
     private bool ShieldBroken;
     [SerializeField] private GameObject ShieldObject;
 
@@ -79,7 +80,7 @@ public class Knight : NetworkBehaviour
         if(!ShieldBroken)ShieldFunctionality(); // cast shield stuff
         if(!fireballOnCooldown && Input.GetKeyDown(KeyCode.Q)) CastFireBall();
         if(!smokeOnCooldown && Input.GetKeyDown(KeyCode.E)) CastSmoke();
-        if (Input.GetMouseButton(0) && !ShieldUp) SlashMelee();
+        if (Input.GetMouseButton(0) && !ShieldUp ) SlashMelee();
         if(ShieldUp) animator.SetBool("IsSwinging", false);
     }
     private void SlashMelee()
