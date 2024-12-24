@@ -1,18 +1,13 @@
 fileFormatVersion: 2
-guid: 79d54586d3641074da69e9a5c56e2b55
+guid: 99d7405679bcc4746ba41dde95640567
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: aiStandardSurface1
-    second: {fileID: 2100000, guid: 3179c1332881b08458fe155d434e98fe, type: 2}
+  externalObjects: {}
   materials:
-    materialImportMode: 1
+    materialImportMode: 2
     materialName: 0
-    materialSearch: 2
+    materialSearch: 1
     materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
