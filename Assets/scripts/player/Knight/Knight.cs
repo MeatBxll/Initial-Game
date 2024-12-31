@@ -155,6 +155,7 @@ public class Knight : NetworkBehaviour
             fireballOnCooldown = true;
             Invoke("CastFireBall", fireballCooldown);
             CmdCastFireBall(gameObject.GetComponent<Health>().IsRedTeam);
+            animator.SetBool("Fireball", true);
         }
         else fireballOnCooldown = false;
     }
@@ -201,6 +202,7 @@ public class Knight : NetworkBehaviour
             smokeOnCooldown = true;
             Invoke("CastSmoke", smokeCooldown);
             CmdCastSmoke(gameObject.GetComponent<Health>().IsRedTeam);
+            animator.SetBool("Smoke", true);
         }
         else smokeOnCooldown = false;
     }
