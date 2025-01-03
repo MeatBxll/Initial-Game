@@ -17,6 +17,7 @@ public class KnightSmoke : NetworkBehaviour
     {
         foreach(GameObject g in smokeObjs)
         {
+            g.gameObject.transform.position = gameObject.transform.position + (PlayerThatSpawnedFireBall.GetComponent<Knight>().FireBallSpawnLocation.transform.forward*3);
             g.gameObject.GetComponent<Rigidbody>().velocity = PlayerThatSpawnedFireBall.GetComponent<Knight>().FireBallSpawnLocation.transform.forward * smokeSpeed;
         }
         Invoke("StopBall", .3f);
@@ -24,7 +25,11 @@ public class KnightSmoke : NetworkBehaviour
 
     private void StopBall()
     {
-        if(whichBall > smokeObjs.Count() -1) return;
+        if(whichBall > smokeObjs.Count() -1) 
+        {
+            Destroy(gameObject, smokeElements[0]);
+            return;
+        }
         smokeObjs[whichBall].GetComponent<Rigidbody>().velocity = Vector2.zero;
         whichBall ++;
         Invoke("StopBall", .3f);
