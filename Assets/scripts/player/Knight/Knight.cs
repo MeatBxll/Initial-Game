@@ -21,7 +21,7 @@ public class Knight : NetworkBehaviour
     [SerializeField] private GameObject ShieldObject;
 
     // fireball stuff
-    [SerializeField] private Transform FireBallSpawnLocation;
+    public Transform FireBallSpawnLocation;
     [SerializeField] private GameObject FireBall;
     [SerializeField] private float fireballCooldown;
     [SerializeField] private float FireBallSpeed;
@@ -154,14 +154,15 @@ public class Knight : NetworkBehaviour
         {
             fireballOnCooldown = true;
             Invoke("CastFireBall", fireballCooldown);
-            CmdCastFireBall(gameObject.GetComponent<Health>().IsRedTeam);
             animator.SetBool("Fireball", true);
         }
         else fireballOnCooldown = false;
     }
 
+    
+
     [Command]
-    void CmdCastFireBall(bool team)
+    public void CmdCastFireBall(bool team)
     {
         // used to fix the rotation if it is off
         Quaternion FixSpawnLocation = Quaternion.Euler(FireBallSpawnLocation.rotation.x, FireBallSpawnLocation.rotation.y, FireBallSpawnLocation.rotation.z + 90);
@@ -201,18 +202,17 @@ public class Knight : NetworkBehaviour
         {
             smokeOnCooldown = true;
             Invoke("CastSmoke", smokeCooldown);
-            CmdCastSmoke(gameObject.GetComponent<Health>().IsRedTeam);
             animator.SetBool("Smoke", true);
         }
         else smokeOnCooldown = false;
     }
     [Command]
-    void CmdCastSmoke(bool team)
+    public void CmdCastSmoke(bool team)
     {
         // used to fix the rotation if it is off
         Quaternion FixSpawnLocation = Quaternion.Euler(FireBallSpawnLocation.rotation.x, FireBallSpawnLocation.rotation.y, FireBallSpawnLocation.rotation.z);
         GameObject smokeSpawnerClone = Instantiate(smokeSpawnObject, FireBallSpawnLocation.position, FixSpawnLocation);
-        smokeSpawnerClone.GetComponent<Rigidbody>().velocity = FireBallSpawnLocation.transform.forward * smokeSpawnObjectSpeed; 
+        smokeSpawnerClone.GetComponent<KnightSmoke>().smokeSpeed = smokeSpawnObjectSpeed; 
         smokeSpawnerClone.GetComponent<KnightSmoke>().IsRedTeam = team;
         smokeSpawnerClone.GetComponent<KnightSmoke>().PlayerThatSpawnedFireBall = gameObject;
         smokeSpawnerClone.GetComponent<KnightSmoke>().smokeElements = smokeElements;

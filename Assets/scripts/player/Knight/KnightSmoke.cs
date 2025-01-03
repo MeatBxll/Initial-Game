@@ -3,39 +3,31 @@ using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 using Mirror;
+using System.Linq;
 
 public class KnightSmoke : NetworkBehaviour
 {
     [HideInInspector] public bool IsRedTeam;
     [HideInInspector] public GameObject PlayerThatSpawnedFireBall;
     [HideInInspector] public float[] smokeElements;
-    [SerializeField] private GameObject smokeObj;
-    private bool onlyOnce;
+    [HideInInspector] public float smokeSpeed;
+    [SerializeField] private GameObject[] smokeObjs;
+    private int whichBall;
     private void Start()
     {
-        
-        onlyOnce = false;
-    }
-    private void OnCollisionEnter(Collision obj) 
-    {
-        if(onlyOnce) return;
-        if(obj.gameObject.tag != "Player")
+        foreach(GameObject g in smokeObjs)
         {
-            onlyOnce = true;
-            CmdSpawnSmoke();
+            g.gameObject.GetComponent<Rigidbody>().velocity = PlayerThatSpawnedFireBall.GetComponent<Knight>().FireBallSpawnLocation.transform.forward * smokeSpeed;
         }
+        Invoke("StopBall", .3f);
     }
-    [Command]
-    void CmdSpawnSmoke()
-    {
-        GameObject smokeClone = Instantiate(smokeObj, gameObject.transform.position, gameObject.transform.rotation);
-        smokeClone.GetComponent<KnightSmoke>().IsRedTeam = IsRedTeam;
-        smokeClone.GetComponent<KnightSmoke>().PlayerThatSpawnedFireBall = PlayerThatSpawnedFireBall;
-        smokeClone.GetComponent<KnightSmoke>().smokeElements = smokeElements;
 
-        NetworkServer.Spawn(smokeClone);
-        Destroy(smokeClone, smokeElements[0]);
-        Destroy(gameObject, smokeElements[0]+ 0.1f);
+    private void StopBall()
+    {
+        if(whichBall > smokeObjs.Count() -1) return;
+        smokeObjs[whichBall].GetComponent<Rigidbody>().velocity = Vector2.zero;
+        whichBall ++;
+        Invoke("StopBall", .3f);
     }
 
     private void OnTriggerEnter(Collider obj) 

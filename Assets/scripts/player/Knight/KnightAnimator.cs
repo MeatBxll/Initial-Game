@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Mirror;
 
-public class KnightAnimator : MonoBehaviour
+public class KnightAnimator : NetworkBehaviour
 {
     [HideInInspector] public Knight knight;
 
@@ -26,6 +27,10 @@ public class KnightAnimator : MonoBehaviour
     }
 
     //fireball stuff
+    public void SpawnFireball()
+    {
+        knight.CmdCastFireBall(knight.gameObject.GetComponent<Health>().IsRedTeam);
+    }
     public void StopFireBallAnim()
     {
         gameObject.GetComponent<Animator>().SetBool("Fireball" , false);
@@ -37,6 +42,11 @@ public class KnightAnimator : MonoBehaviour
         gameObject.GetComponent<Animator>().SetBool("Smoke" , false);
 
     }
+    public void SpawnSmoke()
+    {
+        knight.CmdCastSmoke(knight.gameObject.GetComponent<Health>().IsRedTeam);
+    }
+
     //ult stuff
     public void StopKnightUltAnim()
     {
