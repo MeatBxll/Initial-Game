@@ -1667,9 +1667,10 @@ MonoBehaviour:
   fireballCooldown: 5
   FireBallSpeed: 10
   FireBallBaseDmg: 50
+  FireBallElements: []
   smokeSpawnObject: {fileID: 577611766269685949, guid: 68254ba5be22cdb4290d78dfbdfdbdb5, type: 3}
-  smokeCooldown: 0
-  smokeSpawnObjectSpeed: 5
+  smokeCooldown: 5
+  smokeSpeed: 10
   smokeDurration: 5
   MaxPassiveStacks: 5
   PassiveBurnDmg: 2

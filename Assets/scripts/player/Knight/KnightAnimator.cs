@@ -44,7 +44,7 @@ public class KnightAnimator : NetworkBehaviour
     }
     public void SpawnSmoke()
     {
-        knight.CmdCastSmoke(knight.gameObject.GetComponent<Health>().IsRedTeam);
+        knight.CmdCastSmoke();
     }
 
     //ult stuff

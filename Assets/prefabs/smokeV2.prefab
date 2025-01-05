@@ -136,9 +136,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   IsRedTeam: 0
-  PlayerThatSpawnedFireBall: {fileID: 0}
-  smokeElements: []
-  smokeSpeed: 0
+  PlayerThatSpawnedSmoke: {fileID: 0}
   smokeObjs:
   - {fileID: 1376955508499341155}
   - {fileID: 4969892935562619128}
@@ -207,6 +205,7 @@ GameObject:
   - component: {fileID: 7667981850045040449}
   - component: {fileID: 7357230294923157308}
   - component: {fileID: 2906120667727359709}
+  - component: {fileID: 4880469251790186931}
   m_Layer: 0
   m_Name: FrontSmokePortion
   m_TagString: Untagged
@@ -361,6 +360,19 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4880469251790186931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376955508499341155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cb532d6d2c9a1c4fac3d9d7b58bf446, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerThatSpawnedSmoke: {fileID: 0}
 --- !u!1 &1438884696711768090
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,6 +553,7 @@ GameObject:
   - component: {fileID: 6200341889617854863}
   - component: {fileID: 1434441095472846084}
   - component: {fileID: 4326581017373986164}
+  - component: {fileID: 6821525591736168757}
   m_Layer: 0
   m_Name: BackSmokePortion
   m_TagString: Untagged
@@ -695,6 +708,19 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6821525591736168757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3273414910892847594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cb532d6d2c9a1c4fac3d9d7b58bf446, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerThatSpawnedSmoke: {fileID: 0}
 --- !u!1 &4969892935562619128
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,6 +735,7 @@ GameObject:
   - component: {fileID: 354131495148358854}
   - component: {fileID: 8580377171421013464}
   - component: {fileID: 5211158838150892074}
+  - component: {fileID: 8805750794289912135}
   m_Layer: 0
   m_Name: LargeSmokePortion
   m_TagString: Untagged
@@ -863,3 +890,16 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8805750794289912135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4969892935562619128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cb532d6d2c9a1c4fac3d9d7b58bf446, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerThatSpawnedSmoke: {fileID: 0}

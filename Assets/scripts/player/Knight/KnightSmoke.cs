@@ -8,17 +8,18 @@ using System.Linq;
 public class KnightSmoke : NetworkBehaviour
 {
     [HideInInspector] public bool IsRedTeam;
-    [HideInInspector] public GameObject PlayerThatSpawnedFireBall;
-    [HideInInspector] public float[] smokeElements;
-    [HideInInspector] public float smokeSpeed;
+    [HideInInspector] public GameObject PlayerThatSpawnedSmoke;
     [SerializeField] private GameObject[] smokeObjs;
     private int whichBall;
     private void Start()
     {
+        Transform SpawnSpot = PlayerThatSpawnedSmoke.GetComponent<Knight>().FireBallSpawnLocation.transform;
+        float smokeSpeed = PlayerThatSpawnedSmoke.GetComponent<Knight>().smokeSpeed;
         foreach(GameObject g in smokeObjs)
         {
-            g.gameObject.transform.position = gameObject.transform.position + (PlayerThatSpawnedFireBall.GetComponent<Knight>().FireBallSpawnLocation.transform.forward*3);
-            g.gameObject.GetComponent<Rigidbody>().velocity = PlayerThatSpawnedFireBall.GetComponent<Knight>().FireBallSpawnLocation.transform.forward * smokeSpeed;
+            g.gameObject.transform.position = gameObject.transform.position + (SpawnSpot.forward*3);
+            g.gameObject.GetComponent<Rigidbody>().velocity = SpawnSpot.forward * smokeSpeed;
+            g.GetComponent<KnightSmokeObj>().playerThatSpawnedSmoke = PlayerThatSpawnedSmoke;
         }
         Invoke("StopBall", .3f);
     }
@@ -27,7 +28,7 @@ public class KnightSmoke : NetworkBehaviour
     {
         if(whichBall > smokeObjs.Count() -1) 
         {
-            Destroy(gameObject, smokeElements[0]);
+            Destroy(gameObject, PlayerThatSpawnedSmoke.GetComponent<Knight>().smokeDurration);
             return;
         }
         smokeObjs[whichBall].GetComponent<Rigidbody>().velocity = Vector2.zero;
@@ -35,12 +36,5 @@ public class KnightSmoke : NetworkBehaviour
         Invoke("StopBall", .3f);
     }
 
-    private void OnTriggerEnter(Collider obj) 
-    {
-        if(obj.tag == "Player")
-        {
-            if(obj.GetComponent<Health>().IsRedTeam == IsRedTeam) return;
-            obj.GetComponent<Health>().TakeDmgOverTime(smokeElements[1], smokeElements[2], PlayerThatSpawnedFireBall);
-        }
-    }
+    
 }
