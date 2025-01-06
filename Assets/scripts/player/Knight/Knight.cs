@@ -42,6 +42,7 @@ public class Knight : NetworkBehaviour
     private int CurrentPassiveCount;
 
     [HideInInspector] public Animator animator;
+    private PlayerUI playerUI;
     
 
     void Start()
