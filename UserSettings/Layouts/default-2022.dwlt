@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 989
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Project
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -378,9 +378,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
+      m_SelectedIDs: ba120000
       m_LastClickedID: 0
-      m_ExpandedIDs: 04edffff14fbffff
+      m_ExpandedIDs: 5af2ffff14fbffff2c8f0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -788,7 +788,7 @@ MonoBehaviour:
   m_Position:
     m_Target: {x: -37.099194, y: 3.2192934, z: 35.02647}
     speed: 2
-    m_Value: {x: -7.326805, y: 11.495468, z: 4.058704}
+    m_Value: {x: -37.099194, y: 3.2192934, z: 35.02647}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -836,11 +836,11 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: -0.0027017551, y: -0.8190452, z: -0.0038354967, w: 0.57378846}
     speed: 2
-    m_Value: {x: -0.0021080973, y: -0.9891404, z: 0.14626694, w: -0.014241767}
+    m_Value: {x: -0.0027016334, y: -0.8190083, z: -0.003835324, w: 0.5737626}
   m_Size:
     m_Target: 1.0232455
     speed: 2
-    m_Value: 1.4283171
+    m_Value: 1.0232455
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -858,7 +858,7 @@ MonoBehaviour:
     m_FarClip: 10000
     m_DynamicClip: 1
     m_OcclusionCulling: 0
-  m_LastSceneViewRotation: {x: -0.03422615, y: -0.9102589, z: -0.07681559, w: 0.40551725}
+  m_LastSceneViewRotation: {x: -0.0027017551, y: -0.8190452, z: -0.0038354967, w: 0.57378846}
   m_LastSceneViewOrtho: 0
   m_ReplacementShader: {fileID: 0}
   m_ReplacementString: 
@@ -1174,8 +1174,8 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 0
-    y: 757
+    x: -32000
+    y: -31286
     width: 1414
     height: 234
   m_SerializedDataModeController:
@@ -1199,7 +1199,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/prefabs
+    - Assets/scripts/player
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -1207,16 +1207,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/prefabs
+  - Assets/scripts/player
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\MeatB\My project (1)
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 31}
-    m_SelectedIDs: 447d0000
-    m_LastClickedID: 32068
-    m_ExpandedIDs: 000000002e7d0000307d0000487d0000b67d0000ffffff7f
+    scrollPos: {x: 0, y: 138}
+    m_SelectedIDs: a07e0000
+    m_LastClickedID: 32416
+    m_ExpandedIDs: 00000000367d0000387d0000407d0000507d0000a07e0000ffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1244,7 +1244,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000002e7d0000307d0000
+    m_ExpandedIDs: 00000000367d0000387d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1336,7 +1336,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 122676
+  m_LastSelectedObjectID: 40584
 --- !u!114 &21
 MonoBehaviour:
   m_ObjectHideFlags: 52
