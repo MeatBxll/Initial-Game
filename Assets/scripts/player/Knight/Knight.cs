@@ -65,6 +65,9 @@ public class Knight : NetworkBehaviour
         CmdSetShield(false);
 
         animator.SetFloat("SwingSpeed", SwingSpeed);
+
+        playerUI = GameObject.FindWithTag("playerUI").GetComponent<PlayerUI>();
+        foreach(GameObject i in playerUI.playerUI) if(i.name == "BulletCounter") i.SetActive(false);
     }
 
     void FixedUpdate()
@@ -95,7 +98,6 @@ public class Knight : NetworkBehaviour
 
     private void ShieldFunctionality()
     {
-        Debug.Log(ShieldUp);
         if(Input.GetMouseButton(1))
         {
             if(!ShieldUp)
@@ -149,6 +151,7 @@ public class Knight : NetworkBehaviour
             fireballOnCooldown = true;
             Invoke("CastFireBall", fireballCooldown);
             animator.SetBool("Fireball", true);
+            playerUI.rAbilityCoolDown = fireballCooldown;
         }
         else fireballOnCooldown = false;
     }

@@ -6,13 +6,14 @@ using TMPro;
 using Mirror;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class PlayerUI : MonoBehaviour
 {
     public bool GamePaused;
     public bool playerInScene;
     [SerializeField] private GameObject pauseMenu;
-    [SerializeField] private GameObject[] playerUI;
+    public GameObject[] playerUI;
     [SerializeField] private GameObject[] optionsMenus;
     [SerializeField] private NetworkManager NetworkManager;
 
@@ -23,6 +24,10 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI maxHealth;
     [SerializeField] private TextMeshProUGUI currentHealth;
     [SerializeField] private Slider healthSlider;
+
+    [HideInInspector] public float rAbilityCoolDown;
+    private float rAbilityCoolDownTimer;
+    [SerializeField] private Image rAbilityCooldownPanel;
     
 
     public float PlayerSensitivity;
@@ -38,7 +43,12 @@ public class PlayerUI : MonoBehaviour
         if(resolutionIndex == 2) Screen.SetResolution(1366, 768, Screen.fullScreen);
         if(resolutionIndex == 3) Screen.SetResolution(1440, 900, Screen.fullScreen);
         if(resolutionIndex == 4) Screen.SetResolution(1280, 720, Screen.fullScreen);
-        if(resolutionIndex == 5) Screen.SetResolution(1280, 1024, Screen.fullScreen);        
+        if(resolutionIndex == 5) Screen.SetResolution(1280, 1024, Screen.fullScreen);    
+
+        if(SceneManager.GetActiveScene().name != "menuScene")
+        {
+            rAbilityCooldownPanel.fillAmount = 0.0f;
+        }
     }
     private void Update()
     {
@@ -56,6 +66,7 @@ public class PlayerUI : MonoBehaviour
             GamePaused = false;
             DisableCursor();
         }
+        if(rAbilityCoolDown != 0) RAbilityCoolDown();
     }
     private void DisableCursor()
     {
@@ -160,6 +171,19 @@ public class PlayerUI : MonoBehaviour
         healthSlider.maxValue = g;
         healthSlider.value = i;
 
+    }
+
+    public void RAbilityCoolDown()
+    {
+        if(rAbilityCoolDownTimer > 0.0f)
+        {
+            rAbilityCooldownPanel.fillAmount = rAbilityCoolDownTimer / rAbilityCoolDown;
+        }
+        else
+        {
+            rAbilityCooldownPanel.fillAmount = 0.0f;
+            rAbilityCoolDown = 0;
+        }
     }
 
 }
