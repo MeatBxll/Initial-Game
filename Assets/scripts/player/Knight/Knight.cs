@@ -67,7 +67,7 @@ public class Knight : NetworkBehaviour
         animator.SetFloat("SwingSpeed", SwingSpeed);
 
         playerUI = GameObject.FindWithTag("playerUI").GetComponent<PlayerUI>();
-        foreach(GameObject i in playerUI.playerUI) if(i.name == "BulletCounter") i.SetActive(false);
+        foreach(GameObject i in playerUI.playerUI) if(i.name == "BulletCounter") i.transform.parent.gameObject.SetActive(false);
     }
 
     void FixedUpdate()

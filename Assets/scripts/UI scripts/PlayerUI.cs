@@ -25,15 +25,16 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI currentHealth;
     [SerializeField] private Slider healthSlider;
 
-    [HideInInspector] public float rAbilityCoolDown;
-    private float rAbilityCoolDownTimer;
+    [HideInInspector] public float rAbilityCoolDown = 0;
     [SerializeField] private Image rAbilityCooldownPanel;
+    private float CurrentRFillAmount;
     
 
     public float PlayerSensitivity;
 
     private void Start()
     {
+
         if(PlayerPrefs.GetInt("FullScreenChoice") == 0) Screen.fullScreen = true;
         if(PlayerPrefs.GetInt("FullScreenChoice") == 1) Screen.fullScreen = false;
 
@@ -45,10 +46,7 @@ public class PlayerUI : MonoBehaviour
         if(resolutionIndex == 4) Screen.SetResolution(1280, 720, Screen.fullScreen);
         if(resolutionIndex == 5) Screen.SetResolution(1280, 1024, Screen.fullScreen);    
 
-        if(SceneManager.GetActiveScene().name != "menuScene")
-        {
-            rAbilityCooldownPanel.fillAmount = 0.0f;
-        }
+        if(SceneManager.GetActiveScene().name != "menuScene") rAbilityCooldownPanel.fillAmount = 0.0f;
     }
     private void Update()
     {
@@ -59,7 +57,6 @@ public class PlayerUI : MonoBehaviour
                 GamePaused = !GamePaused;
                 DisableCursor();
             }
-
         }
         else if(GamePaused)
         {
@@ -175,9 +172,12 @@ public class PlayerUI : MonoBehaviour
 
     public void RAbilityCoolDown()
     {
-        if(rAbilityCoolDownTimer > 0.0f)
+        rAbilityCoolDown -= Time.deltaTime;
+        if(rAbilityCoolDown > 0.0f)
         {
-            rAbilityCooldownPanel.fillAmount = rAbilityCoolDownTimer / rAbilityCoolDown;
+            // if(CurrentRFillAmount !< (1 / rAbilityCoolDown) -Time.deltaTime) return;
+            rAbilityCooldownPanel.fillAmount = (1 / rAbilityCoolDown) -Time.deltaTime ;
+            CurrentRFillAmount = (1 / rAbilityCoolDown) -Time.deltaTime;
         }
         else
         {
