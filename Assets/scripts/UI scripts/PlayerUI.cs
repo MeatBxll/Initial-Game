@@ -15,9 +15,6 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     public GameObject[] playerUI;
     [SerializeField] private GameObject[] optionsMenus;
-    [SerializeField] private NetworkManager NetworkManager;
-
-
     [SerializeField] private TextMeshProUGUI currentBulletCountText;
     [SerializeField] private TextMeshProUGUI maxBulletCountText;
 
@@ -27,10 +24,11 @@ public class PlayerUI : MonoBehaviour
 
     [HideInInspector] public float rAbilityCoolDown = 0;
     [SerializeField] private Image rAbilityCooldownPanel;
+    [SerializeField] private TMP_Text rAbilityText;
     private float CurrentRFillAmount;
+    private int currentRTextAmount;
     
-
-    public float PlayerSensitivity;
+    [HideInInspector] public float PlayerSensitivity;
 
     private void Start()
     {
@@ -170,20 +168,42 @@ public class PlayerUI : MonoBehaviour
 
     }
 
-    public void RAbilityCoolDown()
+    private void RAbilityCoolDown()
     {
+        if(CurrentRFillAmount == 0) 
+        {
+            RAbilityCoolDownText(); 
+            currentRTextAmount = 5;
+        }
+        
         rAbilityCoolDown -= Time.deltaTime;
         if(rAbilityCoolDown > 0.0f)
         {
-            // if(CurrentRFillAmount !< (1 / rAbilityCoolDown) -Time.deltaTime) return;
-            rAbilityCooldownPanel.fillAmount = (1 / rAbilityCoolDown) -Time.deltaTime ;
-            CurrentRFillAmount = (1 / rAbilityCoolDown) -Time.deltaTime;
+            if(CurrentRFillAmount <= (1 / rAbilityCoolDown) -Time.deltaTime) 
+            {
+                rAbilityCooldownPanel.fillAmount = (1 / rAbilityCoolDown) -Time.deltaTime ;
+                CurrentRFillAmount = (1 / rAbilityCoolDown) -Time.deltaTime;
+                rAbilityText.gameObject.SetActive(true);
+            }
         }
         else
         {
             rAbilityCooldownPanel.fillAmount = 0.0f;
             rAbilityCoolDown = 0;
+            CurrentRFillAmount = 0;
+            rAbilityText.gameObject.SetActive(false);
         }
     }
+    private void RAbilityCoolDownText()
+    {
+        if(currentRTextAmount == 0) CancelInvoke("RAbilityCoolDownText");
+        else
+        {
+            Invoke("RAbilityCoolDownText", .9f);
+            currentRTextAmount--;
+            rAbilityText.text = currentRTextAmount.ToString();
+        }
+    }
+
 
 }
