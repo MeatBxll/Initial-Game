@@ -26,8 +26,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private Image rAbilityCooldownPanel;
     [SerializeField] private TMP_Text rAbilityText;
     private float CurrentRFillAmount;
-    private int currentRTextAmount;
-    
+    private int currentRTextAmount;    
     [HideInInspector] public float PlayerSensitivity;
 
     private void Start()
@@ -172,8 +171,9 @@ public class PlayerUI : MonoBehaviour
     {
         if(CurrentRFillAmount == 0) 
         {
+            float g = Mathf.Round(rAbilityCoolDown);
+            currentRTextAmount = (int) g;
             RAbilityCoolDownText(); 
-            currentRTextAmount = 5;
         }
         
         rAbilityCoolDown -= Time.deltaTime;
