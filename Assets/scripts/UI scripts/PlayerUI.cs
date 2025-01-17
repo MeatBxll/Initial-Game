@@ -21,13 +21,30 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI maxHealth;
     [SerializeField] private TextMeshProUGUI currentHealth;
     [SerializeField] private Slider healthSlider;
+    [HideInInspector] public float PlayerSensitivity;
 
+
+
+    //E ability stuff
+    [HideInInspector] public float eAbilityCoolDown = 0;
+    [SerializeField] private Image eAbilityCooldownPanel;
+    [SerializeField] private TMP_Text eAbilityText;
+    private float CurrentEFillAmount;
+    private int currentETextAmount;
+    
+    //Q ability stuff
+    [HideInInspector] public float qAbilityCoolDown = 0;
+    [SerializeField] private Image qAbilityCooldownPanel;
+    [SerializeField] private TMP_Text qAbilityText;
+    private float CurrentQFillAmount;
+    private int currentQTextAmount;  
+
+    //r ability stuff
     [HideInInspector] public float rAbilityCoolDown = 0;
     [SerializeField] private Image rAbilityCooldownPanel;
     [SerializeField] private TMP_Text rAbilityText;
     private float CurrentRFillAmount;
     private int currentRTextAmount;    
-    [HideInInspector] public float PlayerSensitivity;
 
     private void Start()
     {
@@ -61,6 +78,8 @@ public class PlayerUI : MonoBehaviour
             DisableCursor();
         }
         if(rAbilityCoolDown != 0) RAbilityCoolDown();
+        if(eAbilityCoolDown != 0) EAbilityCoolDown();
+        if(qAbilityCoolDown != 0) QAbilityCoolDown();
     }
     private void DisableCursor()
     {
@@ -205,5 +224,80 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
+    private void QAbilityCoolDown()
+    {
+        if(CurrentQFillAmount == 0) 
+        {
+            float g = Mathf.Round(qAbilityCoolDown);
+            currentQTextAmount = (int) g;
+            QAbilityCoolDownText(); 
+        }
+        
+        qAbilityCoolDown -= Time.deltaTime;
+        if(qAbilityCoolDown > 0.0f)
+        {
+            if(CurrentQFillAmount <= (1 / qAbilityCoolDown) -Time.deltaTime) 
+            {
+                qAbilityCooldownPanel.fillAmount = (1 / qAbilityCoolDown) -Time.deltaTime ;
+                CurrentQFillAmount = (1 / qAbilityCoolDown) -Time.deltaTime;
+                qAbilityText.gameObject.SetActive(true);
+            }
+        }
+        else
+        {
+            qAbilityCooldownPanel.fillAmount = 0.0f;
+            qAbilityCoolDown = 0;
+            CurrentQFillAmount = 0;
+            qAbilityText.gameObject.SetActive(false);
+        }
+    }
+    private void QAbilityCoolDownText()
+    {
+        if(currentQTextAmount == 0) CancelInvoke("QAbilityCoolDownText");
+        else
+        {
+            Invoke("QAbilityCoolDownText", .9f); 
+            currentQTextAmount--;
+            qAbilityText.text = currentQTextAmount.ToString();
+        }
+    }
+
+    private void EAbilityCoolDown()
+    {
+        if(CurrentEFillAmount == 0) 
+        {
+            float g = Mathf.Round(eAbilityCoolDown);
+            currentETextAmount = (int) g;
+            EAbilityCoolDownText(); 
+        }
+        
+        eAbilityCoolDown -= Time.deltaTime;
+        if(eAbilityCoolDown > 0.0f)
+        {
+            if(CurrentEFillAmount <= (1 / eAbilityCoolDown) -Time.deltaTime) 
+            {
+                eAbilityCooldownPanel.fillAmount = (1 / eAbilityCoolDown) -Time.deltaTime ;
+                CurrentRFillAmount = (1 / eAbilityCoolDown) -Time.deltaTime;
+                eAbilityText.gameObject.SetActive(true);
+            }
+        }
+        else
+        {
+            eAbilityCooldownPanel.fillAmount = 0.0f;
+            eAbilityCoolDown = 0;
+            CurrentEFillAmount = 0;
+            eAbilityText.gameObject.SetActive(false);
+        }
+    }
+    private void EAbilityCoolDownText()
+    {
+        if(currentETextAmount == 0) CancelInvoke("EAbilityCoolDownText");
+        else
+        {
+            Invoke("EAbilityCoolDownText", .9f); 
+            currentETextAmount--;
+            eAbilityText.text = currentETextAmount.ToString();
+        }
+    }
 
 }
