@@ -151,7 +151,7 @@ public class Knight : NetworkBehaviour
             fireballOnCooldown = true;
             Invoke("CastFireBall", fireballCooldown);
             animator.SetBool("Fireball", true);
-            playerUI.rAbilityCoolDown = fireballCooldown;
+            playerUI.qAbilityCoolDown = fireballCooldown;
         }
         else fireballOnCooldown = false;
     }
@@ -200,6 +200,7 @@ public class Knight : NetworkBehaviour
             smokeOnCooldown = true;
             Invoke("CastSmoke", smokeCooldown);
             animator.SetBool("Smoke", true);
+            playerUI.eAbilityCoolDown = smokeCooldown;
         }
         else smokeOnCooldown = false;
     }

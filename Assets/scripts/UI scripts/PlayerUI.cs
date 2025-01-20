@@ -60,7 +60,12 @@ public class PlayerUI : MonoBehaviour
         if(resolutionIndex == 4) Screen.SetResolution(1280, 720, Screen.fullScreen);
         if(resolutionIndex == 5) Screen.SetResolution(1280, 1024, Screen.fullScreen);    
 
-        if(SceneManager.GetActiveScene().name != "menuScene") rAbilityCooldownPanel.fillAmount = 0.0f;
+        if(SceneManager.GetActiveScene().name != "menuScene") 
+        {
+            qAbilityCooldownPanel.fillAmount = 0.0f;
+            eAbilityCooldownPanel.fillAmount = 0.0f;
+            rAbilityCooldownPanel.fillAmount = 0.0f;
+        } 
     }
     private void Update()
     {
