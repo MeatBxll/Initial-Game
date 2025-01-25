@@ -33,7 +33,7 @@ public class KnightSmoke : NetworkBehaviour
         }
         smokeObjs[whichBall].GetComponent<Rigidbody>().velocity = Vector2.zero;
         whichBall ++;
-        Invoke("StopBall", .3f);
+        Invoke("StopBall", .3f); 
     }
 
     

@@ -39,6 +39,7 @@ public class Knight : NetworkBehaviour
     [SerializeField] private int MaxPassiveStacks;
     [SerializeField] private int PassiveBurnDmg;
     [SerializeField] private int PassiveBurnDurration;
+    [SerializeField] private int PassiveDepreciateRate;
     private int CurrentPassiveCount;
 
     [HideInInspector] public Animator animator;
@@ -74,9 +75,13 @@ public class Knight : NetworkBehaviour
     {
         if(!isOwned) return;
         if(GameObject.FindGameObjectWithTag("playerUI").GetComponent<PlayerUI>().GamePaused == true) return;
+
         if(!ShieldBroken)ShieldFunctionality(); // cast shield stuff
+
         if(!fireballOnCooldown && Input.GetKeyDown(KeyCode.Q)) CastFireBall();
+
         if(!smokeOnCooldown && Input.GetKeyDown(KeyCode.E)) CastSmoke();
+
         if (Input.GetMouseButton(0) && !ShieldUp ) SlashMelee();
         if(ShieldUp) animator.SetBool("IsSwinging", false);
     }
@@ -177,6 +182,7 @@ public class Knight : NetworkBehaviour
     public void IncreasePassiveCount()
     {
         if(!isOwned) return;
+        if(CurrentPassiveCount == 0) Invoke("DepreciatePassive", PassiveDepreciateRate);
         if(CurrentPassiveCount == MaxPassiveStacks) return;
         if(CurrentPassiveCount > MaxPassiveStacks) CurrentPassiveCount = MaxPassiveStacks;
         CurrentPassiveCount++;
@@ -184,7 +190,17 @@ public class Knight : NetworkBehaviour
 
     private void DepreciatePassive()
     {
-
+        if(CurrentPassiveCount <= 0) 
+        {
+            CancelInvoke("DepreciatePassive");
+            if(CurrentPassiveCount < 0) CurrentPassiveCount = 0;
+            return;
+        }
+        else
+        {
+            CurrentPassiveCount--;
+            Invoke("DepreciatePassive", PassiveDepreciateRate);
+        }
     }
 
     public void UpdateStats()
@@ -212,5 +228,12 @@ public class Knight : NetworkBehaviour
         GameObject smokeSpawnerClone = Instantiate(smokeSpawnObject, FireBallSpawnLocation.position, FixSpawnLocation);
         smokeSpawnerClone.GetComponent<KnightSmoke>().PlayerThatSpawnedSmoke = gameObject;
         NetworkServer.Spawn(smokeSpawnerClone);
+    }
+
+    private void CastUlt()
+    {
+        //spawn fire smoke behind him
+        //make player dash forward a certain distance
+        //make players sword do more dmg for a certain amount of time
     }
 }

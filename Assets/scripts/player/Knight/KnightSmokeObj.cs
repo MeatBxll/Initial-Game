@@ -19,6 +19,7 @@ public class KnightSmokeObj : MonoBehaviour
         {
             if(obj.GetComponent<Health>().IsRedTeam == IsRedTeam) return;
             obj.GetComponent<Health>().TakeDmgOverTime(smokeElements[1], smokeElements[2], playerThatSpawnedSmoke);
+            playerThatSpawnedSmoke.GetComponent<Knight>().IncreasePassiveCount();
         }
     }
 }
