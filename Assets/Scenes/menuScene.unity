@@ -7656,10 +7656,16 @@ MonoBehaviour:
   maxHealth: {fileID: 0}
   currentHealth: {fileID: 0}
   healthSlider: {fileID: 0}
+  PlayerSensitivity: 0
+  eAbilityCoolDown: 0
+  eAbilityCooldownPanel: {fileID: 0}
+  eAbilityText: {fileID: 0}
+  qAbilityCoolDown: 0
+  qAbilityCooldownPanel: {fileID: 0}
+  qAbilityText: {fileID: 0}
   rAbilityCoolDown: 0
   rAbilityCooldownPanel: {fileID: 0}
   rAbilityText: {fileID: 0}
-  PlayerSensitivity: 0
 --- !u!1 &755979638
 GameObject:
   m_ObjectHideFlags: 0
