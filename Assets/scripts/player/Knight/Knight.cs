@@ -9,6 +9,8 @@ public class Knight : NetworkBehaviour
 {
     //slash melee stuff
     public float SwingSpeed;
+
+    [Header("Knight Shield")]
     //shield stuff
     public float ShieldMaxHealth;
     [HideInInspector] public float ShieldCurrentHealth;
@@ -20,6 +22,8 @@ public class Knight : NetworkBehaviour
     private bool ShieldBroken;
     [SerializeField] private GameObject ShieldObject;
 
+
+    [Header("Knight FireBall")]
     // fireball stuff
     public Transform FireBallSpawnLocation;
     [SerializeField] private GameObject FireBall;
@@ -28,6 +32,8 @@ public class Knight : NetworkBehaviour
     [SerializeField] private float FireBallBaseDmg;
     private bool fireballOnCooldown;
     [HideInInspector] public float[] FireBallElements;
+
+    [Header("Knight Smoke")]
     //fire smoke stuff
     [SerializeField] private GameObject smokeSpawnObject;
     [SerializeField] private float smokeCooldown;
@@ -35,6 +41,13 @@ public class Knight : NetworkBehaviour
     public float smokeDurration;
     private bool smokeOnCooldown;
 
+    [Header("Knight Ult")]
+    //ult stuff
+    [SerializeField] private GameObject knightUltFire;
+    [SerializeField] private float ultCooldown;
+    [SerializeField] private float dashStrength;
+
+    [Header("Knight Passive")]
     //Passive stuff
     [SerializeField] private int MaxPassiveStacks;
     [SerializeField] private int PassiveBurnDmg;
@@ -233,7 +246,19 @@ public class Knight : NetworkBehaviour
     private void CastUlt()
     {
         //spawn fire smoke behind him
+        CmdCastKnightUlt();
+
         //make player dash forward a certain distance
+        gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * dashStrength, ForceMode.Impulse);
+        
         //make players sword do more dmg for a certain amount of time
+    }
+    
+    [Command] 
+    public void CmdCastKnightUlt()
+    {
+        GameObject ultFireClone = Instantiate(knightUltFire, gameObject.transform.position, gameObject.transform.rotation);
+        ultFireClone.GetComponent<KnightUlt>().PlayerThatSpawnedSmoke = gameObject;
+        NetworkServer.Spawn(ultFireClone);
     }
 }
