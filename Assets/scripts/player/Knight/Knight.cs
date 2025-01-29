@@ -46,6 +46,8 @@ public class Knight : NetworkBehaviour
     [SerializeField] private GameObject knightUltFire;
     [SerializeField] private float ultCooldown;
     [SerializeField] private float dashStrength;
+    [SerializeField] private float KnightUltFireLeftBehindDurration;
+    public float KnightUltFireLeftBehindBaseDmg;
 
     [Header("Knight Passive")]
     //Passive stuff
@@ -260,5 +262,6 @@ public class Knight : NetworkBehaviour
         GameObject ultFireClone = Instantiate(knightUltFire, gameObject.transform.position, gameObject.transform.rotation);
         ultFireClone.GetComponent<KnightUlt>().PlayerThatSpawnedSmoke = gameObject;
         NetworkServer.Spawn(ultFireClone);
+        Destroy(ultFireClone, KnightUltFireLeftBehindDurration);
     }
 }

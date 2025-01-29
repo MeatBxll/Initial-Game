@@ -18,9 +18,10 @@ public class KnightUlt : MonoBehaviour
         {
             g.gameObject.transform.position = gameObject.transform.position + (SpawnSpot.forward*3);
             g.gameObject.GetComponent<Rigidbody>().velocity = SpawnSpot.forward * smokeSpeed;
-            g.GetComponent<KnightSmokeObj>().playerThatSpawnedSmoke = PlayerThatSpawnedSmoke;
+            KnightUltFire n = g.GetComponent<KnightUltFire>();
+            n.playerThatSpawnedUltFire = PlayerThatSpawnedSmoke;
         }
-        Invoke("StopBall", .3f);
+        Invoke("StopBall", .3f); 
     }
 
     private void StopBall()

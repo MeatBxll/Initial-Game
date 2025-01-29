@@ -1672,9 +1672,13 @@ MonoBehaviour:
   smokeCooldown: 5
   smokeSpeed: 10
   smokeDurration: 5
+  knightUltFire: {fileID: 0}
+  ultCooldown: 0
+  dashStrength: 0
   MaxPassiveStacks: 5
   PassiveBurnDmg: 2
   PassiveBurnDurration: 5
+  PassiveDepreciateRate: 0
   animator: {fileID: 0}
 --- !u!1001 &447830580595620981
 PrefabInstance:
