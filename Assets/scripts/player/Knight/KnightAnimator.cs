@@ -50,6 +50,7 @@ public class KnightAnimator : NetworkBehaviour
     //ult stuff
     public void StopKnightUltAnim()
     {
+        knight.GetComponent<Knight>().SwordObj.GetComponent<KnightSword>().damage = knight.GetComponent<Knight>().SwordBaseDmg;
 
     }
     

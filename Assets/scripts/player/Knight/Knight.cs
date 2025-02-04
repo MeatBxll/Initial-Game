@@ -8,7 +8,11 @@ using Unity.VisualScripting;
 public class Knight : NetworkBehaviour
 {
     //slash melee stuff
+    [Header("Knight Sword")]
     public float SwingSpeed;
+    public GameObject SwordObj;
+    public float SwordBaseDmg;
+
 
     [Header("Knight Shield")]
     //shield stuff
@@ -48,6 +52,9 @@ public class Knight : NetworkBehaviour
     [SerializeField] private float dashStrength;
     [SerializeField] private float KnightUltFireLeftBehindDurration;
     public float KnightUltFireLeftBehindBaseDmg;
+    [SerializeField] float swordUltDmgIncrease;
+    private bool ultOnCooldown;
+
 
     [Header("Knight Passive")]
     //Passive stuff
@@ -84,6 +91,8 @@ public class Knight : NetworkBehaviour
 
         playerUI = GameObject.FindWithTag("playerUI").GetComponent<PlayerUI>();
         foreach(GameObject i in playerUI.playerUI) if(i.name == "BulletCounter") i.transform.parent.gameObject.SetActive(false);
+
+        SwordObj.GetComponent<KnightSword>().damage = SwordBaseDmg;
     }
 
     void FixedUpdate()
@@ -96,6 +105,7 @@ public class Knight : NetworkBehaviour
         if(!fireballOnCooldown && Input.GetKeyDown(KeyCode.Q)) CastFireBall();
 
         if(!smokeOnCooldown && Input.GetKeyDown(KeyCode.E)) CastSmoke();
+        if(!ultOnCooldown && Input.GetKeyDown(KeyCode.R)) CastUlt();
 
         if (Input.GetMouseButton(0) && !ShieldUp ) SlashMelee();
         if(ShieldUp) animator.SetBool("IsSwinging", false);
@@ -247,13 +257,8 @@ public class Knight : NetworkBehaviour
 
     private void CastUlt()
     {
-        //spawn fire smoke behind him
         CmdCastKnightUlt();
-
-        //make player dash forward a certain distance
         gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * dashStrength, ForceMode.Impulse);
-        
-        //make players sword do more dmg for a certain amount of time
     }
     
     [Command] 
@@ -263,5 +268,6 @@ public class Knight : NetworkBehaviour
         ultFireClone.GetComponent<KnightUlt>().PlayerThatSpawnedSmoke = gameObject;
         NetworkServer.Spawn(ultFireClone);
         Destroy(ultFireClone, KnightUltFireLeftBehindDurration);
+        SwordObj.GetComponent<KnightSword>().damage = SwordBaseDmg + swordUltDmgIncrease;
     }
 }

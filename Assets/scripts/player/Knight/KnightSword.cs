@@ -5,7 +5,7 @@ using Mirror;
 using Mirror.Examples.Basic;
 public class KnightSword : NetworkBehaviour
 {
-    [SerializeField] private float damage;
+    [HideInInspector] public float damage;
     
     private void OnTriggerEnter(Collider g) 
     {

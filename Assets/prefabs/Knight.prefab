@@ -1654,6 +1654,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   SwingSpeed: 1
+  SwordObj: {fileID: 0}
+  SwordBaseDmg: 0
   ShieldMaxHealth: 1000
   ShieldCurrentHealth: 0
   RegenerationCooldown: 1
@@ -1675,6 +1677,9 @@ MonoBehaviour:
   knightUltFire: {fileID: 0}
   ultCooldown: 0
   dashStrength: 0
+  KnightUltFireLeftBehindDurration: 0
+  KnightUltFireLeftBehindBaseDmg: 0
+  swordUltDmgIncrease: 0
   MaxPassiveStacks: 5
   PassiveBurnDmg: 2
   PassiveBurnDurration: 5
