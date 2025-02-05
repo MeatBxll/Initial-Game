@@ -265,7 +265,7 @@ public class Knight : NetworkBehaviour
     public void CmdCastKnightUlt()
     {
         GameObject ultFireClone = Instantiate(knightUltFire, gameObject.transform.position, gameObject.transform.rotation);
-        ultFireClone.GetComponent<KnightUlt>().PlayerThatSpawnedSmoke = gameObject;
+        ultFireClone.GetComponent<KnightUlt>().PlayerThatSpawnedUlt = gameObject;
         NetworkServer.Spawn(ultFireClone);
         Destroy(ultFireClone, KnightUltFireLeftBehindDurration);
         SwordObj.GetComponent<KnightSword>().damage = SwordBaseDmg + swordUltDmgIncrease;

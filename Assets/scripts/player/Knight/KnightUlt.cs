@@ -1,38 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Mirror;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-public class KnightUlt : MonoBehaviour
+public class KnightUlt : NetworkBehaviour
 {
-    [SerializeField] private GameObject[] ultPathObjs;
+    [HideInInspector] public GameObject ultPathObjs;
+    [HideInInspector] public float ultBallWidth;
     [HideInInspector] public bool IsRedTeam;
-    [HideInInspector] public GameObject PlayerThatSpawnedSmoke;
-    private int whichBall;
+    [HideInInspector] public GameObject PlayerThatSpawnedUlt;
+    private Vector3 lastSpawnedBallLocation;
     private void Start()
     {
-        //make ult objs destory faster and get deployed out of the knight with the dash
-        Transform SpawnSpot = PlayerThatSpawnedSmoke.GetComponent<Knight>().FireBallSpawnLocation.transform;
-        float smokeSpeed = PlayerThatSpawnedSmoke.GetComponent<Knight>().smokeSpeed;
-        foreach(GameObject g in ultPathObjs)
-        {
-            g.gameObject.transform.position = gameObject.transform.position + (SpawnSpot.forward*3);
-            g.gameObject.GetComponent<Rigidbody>().velocity = SpawnSpot.forward * smokeSpeed;
-            KnightUltFire n = g.GetComponent<KnightUltFire>();
-            n.playerThatSpawnedUltFire = PlayerThatSpawnedSmoke;
-        }
-        Invoke("StopBall", .3f); 
+        lastSpawnedBallLocation = gameObject.transform.position;
     }
 
-    private void StopBall()
+    private void FixedUpdate()
     {
-        if(whichBall > ultPathObjs.Count() -1) 
+        Vector3 g = PlayerThatSpawnedUlt.transform.position;
+        if(g.x >= lastSpawnedBallLocation.x + ultBallWidth || g.y >= lastSpawnedBallLocation.y + ultBallWidth)
         {
-            Destroy(gameObject, PlayerThatSpawnedSmoke.GetComponent<Knight>().smokeDurration);
-            return;
+            CmdSpawnKnightUltBall();
         }
-        ultPathObjs[whichBall].GetComponent<Rigidbody>().velocity = Vector2.zero;
-        whichBall ++;
-        Invoke("StopBall", .3f); 
+    }
+    [Command]
+    void CmdSpawnKnightUltBall()
+    {
+        GameObject UltBallClone = Instantiate(ultPathObjs, PlayerThatSpawnedUlt.transform.position, PlayerThatSpawnedUlt.transform.rotation);
+        lastSpawnedBallLocation = UltBallClone.transform.position;
+        UltBallClone.GetComponent<KnightUltFire>().playerThatSpawnedUltFire = PlayerThatSpawnedUlt;
+        UltBallClone.transform.SetParent(gameObject.transform);
+        NetworkServer.Spawn(UltBallClone);
     }
 }
