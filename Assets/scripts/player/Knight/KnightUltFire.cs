@@ -8,7 +8,6 @@ public class KnightUltFire : MonoBehaviour
     private float[] passiveDmg;
     private float baseDmg;
     private bool IsRedTeam;
-    private Transform startPos;
     void Start()
     {
         Knight g = playerThatSpawnedUltFire.GetComponent<Knight>();

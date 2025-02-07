@@ -4,6 +4,7 @@ using UnityEngine;
 using Mirror;
 using Unity.Mathematics;
 using Unity.VisualScripting;
+using UnityEngine.UI;
 
 public class Knight : NetworkBehaviour
 {
@@ -47,7 +48,9 @@ public class Knight : NetworkBehaviour
 
     [Header("Knight Ult")]
     //ult stuff
-    [SerializeField] private GameObject knightUltFire;
+    [SerializeField] private GameObject ultFireController;
+    public GameObject ultFire;
+    public float ultBallWidth;
     [SerializeField] private float ultCooldown;
     [SerializeField] private float dashStrength;
     [SerializeField] private float KnightUltFireLeftBehindDurration;
@@ -264,8 +267,8 @@ public class Knight : NetworkBehaviour
     [Command] 
     public void CmdCastKnightUlt()
     {
-        GameObject ultFireClone = Instantiate(knightUltFire, gameObject.transform.position, gameObject.transform.rotation);
-        ultFireClone.GetComponent<KnightUlt>().PlayerThatSpawnedUlt = gameObject;
+        GameObject ultFireClone = Instantiate(ultFireController, gameObject.transform.position, gameObject.transform.rotation);
+        ultFireClone.GetComponent<KnightUlt>().PlayerThatSpawnedUlt = gameObject;        
         NetworkServer.Spawn(ultFireClone);
         Destroy(ultFireClone, KnightUltFireLeftBehindDurration);
         SwordObj.GetComponent<KnightSword>().damage = SwordBaseDmg + swordUltDmgIncrease;

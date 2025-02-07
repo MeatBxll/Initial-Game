@@ -1,20 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using Mirror;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class KnightUlt : NetworkBehaviour
 {
-    [HideInInspector] public GameObject ultPathObjs;
-    [HideInInspector] public float ultBallWidth;
-    [HideInInspector] public bool IsRedTeam;
+    private GameObject ultPathObjs;
+    private float ultBallWidth;
     [HideInInspector] public GameObject PlayerThatSpawnedUlt;
     private Vector3 lastSpawnedBallLocation;
     private void Start()
     {
         lastSpawnedBallLocation = gameObject.transform.position;
+        ultPathObjs = PlayerThatSpawnedUlt.GetComponent<Knight>().ultFire;
+        ultBallWidth = PlayerThatSpawnedUlt.GetComponent<Knight>().ultBallWidth;
     }
 
     private void FixedUpdate()
@@ -22,11 +19,11 @@ public class KnightUlt : NetworkBehaviour
         Vector3 g = PlayerThatSpawnedUlt.transform.position;
         if(g.x >= lastSpawnedBallLocation.x + ultBallWidth || g.y >= lastSpawnedBallLocation.y + ultBallWidth)
         {
-            CmdSpawnKnightUltBall();
+            CmdSpawnKnightUltFire();
         }
     }
     [Command]
-    void CmdSpawnKnightUltBall()
+    void CmdSpawnKnightUltFire()
     {
         GameObject UltBallClone = Instantiate(ultPathObjs, PlayerThatSpawnedUlt.transform.position, PlayerThatSpawnedUlt.transform.rotation);
         lastSpawnedBallLocation = UltBallClone.transform.position;
