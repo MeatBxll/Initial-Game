@@ -49,13 +49,16 @@ public class Knight : NetworkBehaviour
     [Header("Knight Ult")]
     //ult stuff
     [SerializeField] private GameObject ultFireController;
-    public GameObject ultFire;
+    [SerializeField] private GameObject ultFire;
+    public GameObject knightFeet;
     public float ultBallWidth;
     [SerializeField] private float ultCooldown;
     [SerializeField] private float dashStrength;
+    public float dashDurration;
     [SerializeField] private float KnightUltFireLeftBehindDurration;
+    [SerializeField] private float knightUltSwordDmgIncDurration;
     public float KnightUltFireLeftBehindBaseDmg;
-    [SerializeField] float swordUltDmgIncrease;
+    [SerializeField] private float swordUltDmgIncrease;
     private bool ultOnCooldown;
 
 
@@ -261,7 +264,7 @@ public class Knight : NetworkBehaviour
     private void CastUlt()
     {
         CmdCastKnightUlt();
-        gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * dashStrength, ForceMode.Impulse);
+        gameObject.GetComponent<Rigidbody>().velocity = transform.forward * dashStrength;
     }
     
     [Command] 
@@ -272,5 +275,15 @@ public class Knight : NetworkBehaviour
         NetworkServer.Spawn(ultFireClone);
         Destroy(ultFireClone, KnightUltFireLeftBehindDurration);
         SwordObj.GetComponent<KnightSword>().damage = SwordBaseDmg + swordUltDmgIncrease;
+    }
+    //invoked from knight ult script
+    [Command]
+    public void CmdSpawnKnightUltFire()
+    {
+        gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * dashStrength, ForceMode.Impulse);
+        GameObject UltBallClone = Instantiate(ultFire, knightFeet.transform.position, knightFeet.transform.rotation);
+        UltBallClone.GetComponent<KnightUltFire>().playerThatSpawnedUltFire = gameObject;
+        UltBallClone.transform.SetParent(gameObject.transform);
+        NetworkServer.Spawn(UltBallClone);
     }
 }

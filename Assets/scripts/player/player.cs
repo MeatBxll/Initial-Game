@@ -24,6 +24,7 @@ public class player : NetworkBehaviour
     [SerializeField] private GameObject cam;
 
     public Animator animator;
+    private bool stopMove = false;
 
     void Start()
     {
@@ -32,13 +33,14 @@ public class player : NetworkBehaviour
 
         _pauseMenu = GameObject.FindGameObjectWithTag("playerUI");
         _pauseMenu.GetComponent<PlayerUI>().OnPlayerStart();
+        stopMove = false;
 
     }
 
     private void Update()
     {
         if(!isOwned) return;
-
+        if(stopMove == true) return;
         //sets FOV
         if(PlayerPrefs.GetFloat("FOV") > 50f )
             cam.GetComponent<Camera>().fieldOfView = PlayerPrefs.GetFloat("FOV");
