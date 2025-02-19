@@ -17,7 +17,7 @@ public class KnightUltFire : MonoBehaviour
         passiveDmg[0] = g.FireBallElements[1];
         passiveDmg[1] = g.FireBallElements[2];
 
-        baseDmg = g.KnightUltFireLeftBehindBaseDmg;
+        baseDmg = g.ultFireBaseDmg;
     }
 
     private void OnTriggerEnter(Collider obj) 
