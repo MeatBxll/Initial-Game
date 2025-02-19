@@ -48,18 +48,21 @@ public class Knight : NetworkBehaviour
 
     [Header("Knight Ult")]
     //ult stuff
-    [SerializeField] private GameObject ultFireController;
-    [SerializeField] private GameObject ultFire;
-    public GameObject knightFeet;
-    public float ultBallWidth;
     [SerializeField] private float ultCooldown;
+
+    [SerializeField] private GameObject ultFire;
+    [SerializeField] private float ultFireWidth;
+    [SerializeField] private float ultFireDurration;
+    public float ultFireBaseDmg;
+
+    [SerializeField] private Transform knightFeet;
     [SerializeField] private float dashStrength;
-    public float dashDurration;
-    [SerializeField] private float KnightUltFireLeftBehindDurration;
-    [SerializeField] private float knightUltSwordDmgIncDurration;
-    public float KnightUltFireLeftBehindBaseDmg;
+    [SerializeField] private float dashDurration;
+    [SerializeField] private float swordDmgIncDurration;
     [SerializeField] private float swordUltDmgIncrease;
+    private Vector3 lastUltFireLocation;
     private bool ultOnCooldown;
+    private bool isUlting;
 
 
     [Header("Knight Passive")]
@@ -99,6 +102,9 @@ public class Knight : NetworkBehaviour
         foreach(GameObject i in playerUI.playerUI) if(i.name == "BulletCounter") i.transform.parent.gameObject.SetActive(false);
 
         SwordObj.GetComponent<KnightSword>().damage = SwordBaseDmg;
+
+        ultFireWidth = ultFire.GetComponent<SphereCollider>().radius * 2;
+        knightFeet.position = new Vector3(knightFeet.position.x,knightFeet.position.y,knightFeet.position.z - (ultFireWidth/2));
     }
 
     void FixedUpdate()
@@ -111,10 +117,15 @@ public class Knight : NetworkBehaviour
         if(!fireballOnCooldown && Input.GetKeyDown(KeyCode.Q)) CastFireBall();
 
         if(!smokeOnCooldown && Input.GetKeyDown(KeyCode.E)) CastSmoke();
+        
         if(!ultOnCooldown && Input.GetKeyDown(KeyCode.R)) CastUlt();
+        if(isUlting) IsCurrentlyUlting();
 
         if (Input.GetMouseButton(0) && !ShieldUp ) SlashMelee();
+
         if(ShieldUp) animator.SetBool("IsSwinging", false);
+
+
     }
     private void SlashMelee()
     {
@@ -261,20 +272,28 @@ public class Knight : NetworkBehaviour
         NetworkServer.Spawn(smokeSpawnerClone);
     }
 
+    //ult stuff
     private void CastUlt()
     {
-        CmdCastKnightUlt();
-        gameObject.GetComponent<Rigidbody>().velocity = transform.forward * dashStrength;
-    }
-    
-    [Command] 
-    public void CmdCastKnightUlt()
-    {
-        GameObject ultFireClone = Instantiate(ultFireController, gameObject.transform.position, gameObject.transform.rotation);
-        ultFireClone.GetComponent<KnightUlt>().PlayerThatSpawnedUlt = gameObject;        
-        NetworkServer.Spawn(ultFireClone);
-        Destroy(ultFireClone, KnightUltFireLeftBehindDurration);
+        lastUltFireLocation = knightFeet.transform.position;
+        isUlting = true;
+        
         SwordObj.GetComponent<KnightSword>().damage = SwordBaseDmg + swordUltDmgIncrease;
+        Invoke("ResetSwordDmg", swordDmgIncDurration);
+        Invoke("StopDash", dashDurration);
+    }
+    private void ResetSwordDmg() { SwordObj.GetComponent<KnightSword>().damage = SwordBaseDmg; }
+    private void StopDash() { isUlting = false; }
+    private void IsCurrentlyUlting()
+    {
+        if(gameObject.GetComponent<Rigidbody>().velocity != transform.forward * dashStrength)
+            gameObject.GetComponent<Rigidbody>().velocity = transform.forward * dashStrength;
+            
+        if(transform.position.x >= lastUltFireLocation.x + ultFireWidth || transform.position.z >= lastUltFireLocation.z + ultFireWidth)
+        {
+            CmdSpawnKnightUltFire();
+            lastUltFireLocation = knightFeet.position;
+        }
     }
     //invoked from knight ult script
     [Command]
