@@ -1706,16 +1706,15 @@ MonoBehaviour:
   smokeCooldown: 5
   smokeSpeed: 10
   smokeDurration: 5
-  ultFireController: {fileID: 0}
-  ultFire: {fileID: 0}
-  knightFeet: {fileID: 5930262618674356287}
-  ultBallWidth: 0
   ultCooldown: 0
+  ultFire: {fileID: 0}
+  ultFireWidth: 0
+  ultFireDurration: 0
+  ultFireBaseDmg: 0
+  knightFeet: {fileID: 5930262618674356287}
   dashStrength: 0
   dashDurration: 0
-  KnightUltFireLeftBehindDurration: 0
-  knightUltSwordDmgIncDurration: 0
-  KnightUltFireLeftBehindBaseDmg: 0
+  swordDmgIncDurration: 0
   swordUltDmgIncrease: 0
   MaxPassiveStacks: 5
   PassiveBurnDmg: 2
