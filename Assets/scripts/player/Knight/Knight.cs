@@ -51,7 +51,6 @@ public class Knight : NetworkBehaviour
     [SerializeField] private float ultCooldown;
 
     [SerializeField] private GameObject ultFire;
-    [SerializeField] private float ultFireWidth;
     [SerializeField] private float ultFireDurration;
     public float ultFireBaseDmg;
 
@@ -63,6 +62,8 @@ public class Knight : NetworkBehaviour
     private Vector3 lastUltFireLocation;
     private bool ultOnCooldown;
     private bool isUlting;
+    private float ultFireWidth;
+
 
 
     [Header("Knight Passive")]
@@ -288,7 +289,7 @@ public class Knight : NetworkBehaviour
     {
         if(gameObject.GetComponent<Rigidbody>().velocity != transform.forward * dashStrength)
             gameObject.GetComponent<Rigidbody>().velocity = transform.forward * dashStrength;
-            
+
         if(transform.position.x >= lastUltFireLocation.x + ultFireWidth || transform.position.z >= lastUltFireLocation.z + ultFireWidth)
         {
             CmdSpawnKnightUltFire();
@@ -304,5 +305,6 @@ public class Knight : NetworkBehaviour
         UltBallClone.GetComponent<KnightUltFire>().playerThatSpawnedUltFire = gameObject;
         UltBallClone.transform.SetParent(gameObject.transform);
         NetworkServer.Spawn(UltBallClone);
+        Destroy(UltBallClone, ultFireDurration);
     }
 }

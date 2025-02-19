@@ -1686,8 +1686,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   SwingSpeed: 1
-  SwordObj: {fileID: 0}
-  SwordBaseDmg: 0
+  SwordObj: {fileID: 789935726811169060}
+  SwordBaseDmg: 10
   ShieldMaxHealth: 1000
   ShieldCurrentHealth: 0
   RegenerationCooldown: 1
@@ -1706,16 +1706,15 @@ MonoBehaviour:
   smokeCooldown: 5
   smokeSpeed: 10
   smokeDurration: 5
-  ultCooldown: 0
-  ultFire: {fileID: 0}
-  ultFireWidth: 0
-  ultFireDurration: 0
-  ultFireBaseDmg: 0
-  knightFeet: {fileID: 5930262618674356287}
-  dashStrength: 0
-  dashDurration: 0
-  swordDmgIncDurration: 0
-  swordUltDmgIncrease: 0
+  ultCooldown: 40
+  ultFire: {fileID: 4886014483616169371, guid: 96ecbcf927b37cc4290a85fca624a848, type: 3}
+  ultFireDurration: 3
+  ultFireBaseDmg: 20
+  knightFeet: {fileID: 74381029596633417}
+  dashStrength: 20
+  dashDurration: 1
+  swordDmgIncDurration: 5
+  swordUltDmgIncrease: 10
   MaxPassiveStacks: 5
   PassiveBurnDmg: 2
   PassiveBurnDurration: 5
@@ -1793,6 +1792,11 @@ PrefabInstance:
 --- !u!4 &125461935415630750 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c1504d02252b5624f946c7b050effc3c, type: 3}
+  m_PrefabInstance: {fileID: 447830580595620981}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &789935726811169060 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c1504d02252b5624f946c7b050effc3c, type: 3}
   m_PrefabInstance: {fileID: 447830580595620981}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &703256927463470857
